@@ -132,7 +132,7 @@ Quick Review A
 B.PHP Strings and Variables
 ---------------------------------
 
----------------------
+----------------------
 1.Strings
 ---------------------
 
@@ -167,6 +167,39 @@ Quotation marks aren’t the only symbol requiring an escape sequence. When we p
     
 You don’t need to worry about other escape sequences yet, but if you’d like to see the full list you can find one in the http://php.net/manual/en/language.types.string.php#language.types.string.syntax.double
     
+----------------------------
+3.String Concatenation
+----------------------------
 
+It can be useful to combine two strings together. This process is called string concatenation, and we can use the concatenation operator (.) to do this. 
 
+An operator is a character that performs a task in our code. The computer will take the string to the left of the concatenation operator, combine it with the string to the right, and return the resulting single string. Let’s see an example of string concatenation:
+
+    echo "one" . "two"; // Prints: onetwo
+
+Notice how the string “onetwo” was printed. The computer won’t make any assumptions for us—it will combine the strings exactly as they are without adding any spaces or line-breaks. If we want spaces, we’ll have to add any spaces we want ourselves. Here we added a space to the string "one ":
+
+    echo "one " . "two"; // Prints: one two
+
+We can also combine, or chain, our operations to get a final result:
+    
+    echo "one" . " " . "two" . " " . "three"; // Prints: one two three
+
+The concatenation operator takes two strings (the operands) and produces a string as a result (the return value). As we delve deeper into PHP, we’ll learn about other kinds of operators. Most will take one or two operands, but there’s even one that takes three.
+
+-------------------
+4.Variables
+-------------------
+
+Let’s say I have a really long string in my program, and I’m going to need to use it multiple times. Do I have to type the string out every time I need to use it? The answer is “no”. Variables are a fundamental programming concept designed to address this concern. With variables, we store values so that we can easily reuse them throughout a program. 
+
+![alt text](https://content.codecademy.com/courses/php-strings-variables/PHP_m2l1e4m.svg)
+
+Before we can use variables in our code, we need to declare and assign them.
+
+Declaring a variable is the process of reserving a word, the variable name, which we’ll be able to refer to in our code. It’s good practice to name the variable in a way that describes the data it holds.
+
+Assignment is the process of associating that variable name with a specific value so that everytime we use the variable’s name the computer will grab that value. 
+
+![alt text](https://content.codecademy.com/courses/php-strings-variables/PHP_m2l1e4n.gif)
 
