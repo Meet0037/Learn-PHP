@@ -142,7 +142,31 @@ In everyday conversation, we use the word data to refer to any sort of informati
 
 The PHP language has different ways of handling different types of data. Which actions the computer can perform and how the computer stores the data in memory will vary based on the type. In this lesson, we’ll be learning about the string data type.
 
+    echo "My first string"; // Prints: My first string
+    
+----------------------
+2.Escape Sequences
+----------------------
 
+We use quotation marks to indicate the start and end of a string. The quotation marks tell the computer that we want everything inside them to be treated as a single piece of data. But how do we include quotation marks inside a string?
+
+Consider the following string: "She said "hi" to the dog."
+
+In the code above, the quotes around “hi” are intended to be part of the string, but the computer will actually see two strings "She said " and " to the dog." with hi in between. Since hi won’t be recognized as valid PHP it will result in an error:
+
+    echo "She said "hi" to the dog."; //syntax error, unexpected 'hi' (T_STRING)
+    
+In order to indicate which quotation marks the computer should view as instructions vs which it should view as simply characters, PHP allows for escape sequences. An escape sequence usually consists of a backslash (\) immediately followed by another character. 
+
+     echo "She said \"hi\" to the dog."; // Prints: She said "hi" to the dog.
+       
+Quotation marks aren’t the only symbol requiring an escape sequence. When we print multiple strings, PHP will print them to the same line by default: 
+
+    echo "1. Go to gym";
+    echo "2. Cook dinner"; 
+    
+You don’t need to worry about other escape sequences yet, but if you’d like to see the full list you can find one in the http://php.net/manual/en/language.types.string.php#language.types.string.syntax.double
+    
 
 
 
