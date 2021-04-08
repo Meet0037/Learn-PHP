@@ -128,4 +128,13 @@ Quick Review A
 
 -> Single line comments are made in PHP using # or //. Multi-line comments are placed between /* and */.
 
+---------------------------------
+B.PHP Strings and Variables
+---------------------------------
+
+---------------------
+1.Strings
+---------------------
+
+
 
