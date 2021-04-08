@@ -136,6 +136,13 @@ B.PHP Strings and Variables
 1.Strings
 ---------------------
 
+![alt text](https://content.codecademy.com/courses/php-strings-variables/PHP_m2l1e1.svg)
+
+In everyday conversation, we use the word data to refer to any sort of information. This information is often a list of numbers, like a company’s monthly expenses or statistics about an athlete’s performance. However, in programming, data means something very specific. It’s still information, but that information takes the form of a few specific types.
+
+The PHP language has different ways of handling different types of data. Which actions the computer can perform and how the computer stores the data in memory will vary based on the type. In this lesson, we’ll be learning about the string data type.
+
+
 
 
 
