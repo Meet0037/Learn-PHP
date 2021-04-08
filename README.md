@@ -203,3 +203,52 @@ Assignment is the process of associating that variable name with a specific valu
 
 ![alt text](https://content.codecademy.com/courses/php-strings-variables/PHP_m2l1e4n.gif)
 
+-----------------------
+5.Creating Variables
+-----------------------
+
+Let’s look at an example of creating a variable:
+
+    $my_name = "Aisle Nevertell";
+    
+In the code above, we’re actually doing two things with a single statement: we’re declaring a new variable by giving it the name my_name. We’re also assigning it the value "Aisle Nevertell". The variable $my_name now holds the value "Aisle Nevertell".
+
+To declare a variable we use the dollar sign character ($) followed by our chosen variable name. The dollar sign is known as a sigil; it’s a character that allows the computer to see quickly that something is a variable.
+
+To assign it a value we use another operator: the assignment operator (=) followed by the value we’re assigning to the variable.
+
+Though it can occasionally be useful to separate these actions, we’ll most often be declaring and assigning variables at the same time. 
+
+![alt text](https://content.codecademy.com/courses/php-strings-variables/PHP_m2l1e5.svg)
+
+In PHP, variables names can contain numbers, letters, and underscores (_), but they have to start with either a letter or an underscore. Variable names are case sensitive, meaning that PHP will treat the variables $my_example and $My_example as two different variables.
+
+    ⚠️Snake case:
+    
+    One common convention when naming PHP variables is to use an underscore between words on variable names with more than one word in their name. This is known as snake case:
+    
+    $mood = ":)";
+    $favorite_food = "Red curry with eggplant";
+    
+-----------------------
+6.Using Variables
+------------------------
+
+Once we’ve declared a variable and assigned a value to it, we can use it as many times as we want. We refer to a variable by using the dollar sign followed by the variable’s name.
+
+    $favorite_food = "Red curry with eggplant, green beans, and peanuts";
+    echo $favorite_food; 
+    // Prints: Red curry with eggplant, green beans, and peanuts
+    
+Except during assignment, whenever the computer sees a variable in your code, it replaces the variable with the value assigned to that variable.
+
+    $dog_name = "Tadpole";
+    echo $dog_name; 
+    // Prints: Tadpole
+    
+Since the computer treats a variable just as if it were the value it holds, this means we can do operations on variables just as we would with any value of that type.
+
+    $dog_name = "Tadpole";
+    echo "My dog is named " . $dog_name; 
+    // Prints: My dog is named Tadpole
+
