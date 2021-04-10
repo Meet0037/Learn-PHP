@@ -610,5 +610,49 @@ In this lesson, we’re going to start learning the syntax for defining and invo
 
 ![caption](https://content.codecademy.com/courses/php-functions/PHP_Salad_Recipe.mov)
 
+------------------------------
+2.Defining Functions
+------------------------------
 
 
+Let’s get right to it and create our first function:
+
+    function greetLearner()
+    {
+      echo "Hello, Learner!\n";
+      echo "I hope you're enjoying PHP!\n";
+      echo "Love, Codecademy";
+    }
+
+Let’s walk through the code above:
+
+We used the function keyword to start our function definition.
+We named the function greetLearner. Function names must start with a letter or underscore, followed by any number of letters, numbers, or underscores.
+We created a code block with curly brackets ({ }). The code inside this code block will execute when our function is invoked.
+Within that block we wrote three instructions: echo "Hello, Learner!\n!";, echo "I hope you're enjoying PHP!\n";, and echo "Love, Codecademy";
+
+With our greetLearner() function defined, we’ll be able to invoke the function multiple times and print those strings without having to copy or retype the three echo statements again and again.
+
+A few notes on naming conventions: we typically snake case (separate words with underscores) our variable names, but, in order to easily tell the difference between variables and functions in our code, we’ll do something different when naming functions. We’re going to use camel case for our function names—we’ll start with a lowercase letter and then capitalize the first letter of every new word: camelCase vs. snake_case. Another good practice is to name functions in a way that describes what they do—typically we’ll start function names with a verb. 
+
+-------------------------------
+3.Invoking Functions
+------------------------------
+
+In our last exercise, we saw that when we define a function, the instructions within the code block aren’t executed. Defining a function only tells the computer to associate a name with a set of instructions. To actually execute this code we’ll need in invoke, or call, the function. Invoking a function is the process of using a function that’s been defined. Let’s look at an example:
+
+    function greetLearner()
+    {
+      echo "Hello, Learner!\n";
+      echo "I hope you're enjoying PHP!\n";
+      echo "Love, Codecademy";
+    }
+
+    greetLearner(); 
+    /*
+    Prints:
+    Hello, Learner!
+    I hope you're enjoying PHP!
+    Love, Codecademy
+    */
+    
