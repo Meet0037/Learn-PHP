@@ -608,7 +608,7 @@ A function is a set of instructions we package as a unit, often with a name, so 
 
 In this lesson, we’re going to start learning the syntax for defining and invoking PHP functions. We’ll start with simpler functions and work our way to more complex ones. If this is your first time working with functions, it can feel like a big jump. Take your time and be patient with yourself.
 
-![Alt text](https://content.codecademy.com/courses/php-functions/PHP_Salad_Recipe.mov)
+![caption](https://content.codecademy.com/courses/php-functions/PHP_Salad_Recipe.mov)
 
 
 
