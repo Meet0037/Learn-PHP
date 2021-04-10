@@ -376,3 +376,60 @@ When we assign by reference we’re saying that the variable on the left of the 
 
     $first_player_rank = "Intermediate"; // Reassign the value of $first_player_rank
     echo $second_player_rank; // Prints: Intermediate
+    
+    
+--------------------------
+Quick Review B
+--------------------------
+
+Awesome work! We’ve covered a lot of material in this lesson, so let’s review:
+
+-> Strings are collections of text that the computer treats as a single piece of data.
+
+-> A string can be any length and contain any letters, numbers, symbols, or spaces surrounded by quotation marks.
+
+-> In order to include certain characters inside strings we have to use escape sequences.
+
+-> An operator is a character that performs a task in our code.
+
+-> We can use the concatenation operator (.) to combine two strings into one.
+
+-> Variables are a fundamental programming concept which allow us to easily reuse data in our code.
+
+-> We declare a variable using the dollar sign ($) followed by the variable name and then use the assignment operator (=) to give it a value.
+
+-> PHP has variable parsing which allows us to include variables directly in our strings.
+
+-> Once a variable has been assigned, we can change its value. This is called reassignment.
+
+-> We can create an alias for a variable, instead of just a copy, using the reference assignment operator (=&).
+
+-> Operations to the right of the assignment operator will be evaluated before assignment takes place.
+
+-> The concatenating assignment operator (.=) is a shorthand notation for reassigning a string variable to its current value appended with another string value.
+
+------------------------------------------------------
+C.Numbers in PHP
+----------------------------------------------------
+
+----------------------------
+1.Numbers
+---------------------------
+
+Numbers and arithmetic operations are a fundamental part of programming. In this lesson, we’ll learn how to use and manipulate numbers in PHP.
+
+PHP has two number data types. The integer data type includes positive and negative whole numbers (such as 3, 4599, -98, and 0). The floating point data type is used to represent decimal numbers (such as 4.98273, 2.1, -9.7, -182736.8).
+
+    echo 5; // Prints: 5
+    echo -22.8; // Prints: -22.8
+
+We can also declare variables and assign numbers as their values:
+
+    $my_int = 78;
+    $my_float = -897.21;
+
+    echo $my_int; // Prints: 78
+    echo $my_float; // Prints: -897.21
+
+In the code above, we created the $my_int variable and assigned the integer value of 78 to it. Next, we created the $my_float variable and assigned the floating point value of -897.21 to it.
+
