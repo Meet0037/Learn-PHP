@@ -253,7 +253,7 @@ Since the computer treats a variable just as if it were the value it holds, this
     // Prints: My dog is named Tadpole
     
 -------------------
-Variable Parsing
+7.Variable Parsing
 --------------------
 
 In the last exercise, we saw how concatenating a number of strings and string variables got annoying. There’s an easier way!
@@ -285,3 +285,94 @@ Fear not! PHP allows us to specifically indicate the variable name by wrapping i
     echo "I have a ${color}ish dog named $dog_name and her favorite food is ${favorite_food}s.";
     // Prints: I have a brownish dog named Tadpole and her favorite food is treats.
 
+-------------------------
+8.Variable Reassignment
+-------------------------
+
+The word variable comes from the latin variāre which means “to make changeable.” This is an apt name because the value assigned to a variable can change.
+
+The process of assigning a new value to a variable is called reassignment. We reassign a variable using the assignment operator on a variable that’s already been declared:
+
+![Variable reassignment](https://content.codecademy.com/courses/php-strings-variables/PHPVariable_m2l1e8.gif)
+
+    $favorite_food = "Red curry with eggplant";
+    echo $favorite_food; // Prints: Red curry with eggplant
+
+    // Reassign the value of $favorite_food to a new string
+    $favorite_food = "Pizza"; 
+    echo $favorite_food; // Prints: Pizza
+
+It’s often useful to create new variables assigned to the same value as an existing variable:
+
+    $first_player_rank = "Beginner";
+    $second_player_rank = $first_player_rank; 
+
+In the code above, we declared the variable $first_player_rank and assigned to it the string "Beginner". Next, we declared $second_player_rank and assigned it to $first_player_rank.
+
+This created a new variable ($second_player_rank) assigned the value "Beginner". Notice how variables can be treated different depending on where they appear in code. During variable assignment or reassignment, the variable on the left of the assignment operator is treated as a variable (named storage for holding a value) while a variable on the right of the operator is treated as the value it stores. 
+
+-----------------------------------
+9.Concatenating Assignment Operator
+-----------------------------------
+
+We can assign and reassign variables to the values that result from operations:
+
+    $full_name = "Aisle" . " Nevertell";
+    echo $full_name; // Prints: Aisle Nevertell
+
+During assignment, the computer will first evaluate everything to the right of the assignment operator and return a single value.
+
+In the code above, the computer will concatenate the strings "Aisle" and " Nevertell" into the value "Aisle Nevertell". It will then assign this string as the value to the $full_name variable.
+
+This is true even for more complex operations:
+
+    $full_name = "Aisle" . " " . "Nevertell" . " " . "Nomaderwat";
+    echo $full_name; // Prints: Aisle Nevertell Nomaderwat
+
+One theme you may notice as you learn a programming language’s syntax is that common actions that programmers need to do a lot often have a shortcut. Consider the following:
+
+    $full_name = "Aisle";
+    $full_name = $full_name . " Nevertell";
+    echo $full_name; // Prints: Aisle Nevertell
+
+In the code above, we have the variable $full_name assigned the value "Aisle". We want to reassign $full_name to its current value appended with the string " Nevertell".
+
+Believe it or not, this is such a common task that PHP offers a shorthand notation, the concatenating assignment operator (.=). Let’s compare the same action but using this alternate operator:
+
+    $full_name = "Aisle";
+    $full_name .= " Nevertell";
+    echo $full_name; // Prints: Aisle Nevertell
+
+It may seem funny to provide a shortcut to save just a few characters of typing, but when operations are performed often enough, those keystrokes can really add up. This syntax is also faster and easier to read which makes code easier to maintain.
+
+One important thing to note is that even though PHP is often flexible about whitespace, it is inflexible with the concatenating assignment operator—the . and = characters must not have any spaces or other whitespace characters between them. 
+
+-------------------------
+10.Assign by Reference
+-------------------------
+
+When we create a variable assigned to another variable, the computer finds a new space in memory which it associates with the left operand, and it stores a copy of the right operand’s value there. 
+
+![Assign by reference](https://content.codecademy.com/courses/php-strings-variables/PHPVariable_4_v3.gif)
+
+This new variable holds a copy of the value held by the original variable, but it’s an independent entity; changes made to either variable won’t affect the other:
+
+    $first_player_rank = "Beginner"; 
+    $second_player_rank = $first_player_rank; 
+    echo $second_player_rank; // Prints: Beginner
+
+    $first_player_rank = "Intermediate"; // Reassign the value of $first_player_rank
+    echo $second_player_rank; // Still Prints: Beginner
+
+![Alt text](https://content.codecademy.com/courses/php-strings-variables/PHPVariable_5_v3.gif)
+
+We use a different operator for this—the reference assignment operator (=&).
+
+When we assign by reference we’re saying that the variable on the left of the operator should point, or refer, to the exact same data as the variable on the right. With assignment by reference, changes made to one variable will affect the other:
+
+    $first_player_rank = "Beginner";
+    $second_player_rank =& $first_player_rank; 
+    echo $second_player_rank; // Prints: Beginner
+
+    $first_player_rank = "Intermediate"; // Reassign the value of $first_player_rank
+    echo $second_player_rank; // Prints: Intermediate
