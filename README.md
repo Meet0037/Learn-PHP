@@ -656,3 +656,297 @@ In our last exercise, we saw that when we define a function, the instructions wi
     Love, Codecademy
     */
     
+---------------------------------
+4.Return Statements
+--------------------------------
+
+As we build more complicated functions, we’ll often be using them to process data. In order for the data to be useful, functions have the ability to return a value in addition to performing instructions. Let’s look at an example:
+
+    function countdown() 
+    {
+      echo "4, 3, 2, 1, ";
+      return "blastoff!";
+    }
+
+When the countdown() function is invoked it will print 4, 3, 2, 1,, but what about the string "blastoff!"? This value will be returned. We have a lot of options for what to do with a returned value. For example, we could capture it in a variable:
+
+    $return_value = countdown(); // Prints: 4, 3, 2, 1, 
+    echo $return_value; // Prints: blastoff!
+
+This example is a little silly, since we could have just printed the string within the function, but, as we continue to create more complicated functions, the ability to return a value will become extremely useful. 
+
+---------------------------------
+5.More on Return Statements
+-----------------------------------
+
+The return keyword immediately stops a function. This means that any code after a return won’t run.
+
+Let’s compare two different functions: announceRunning() and announceRunning2(). The first of these is defined as follows:
+
+    function announceRunning()
+    {
+      echo "The first function is running!\n";
+      return "This is the return value of the first function.";
+    }
+
+    $first_result = announceRunning();
+    echo $first_result;
+
+Let’s walk through the code above:
+
+We defined the function announceRunning().
+Next, we defined the variable $first_result and assigned as its value the result of invoking the announceRunning() function. This actually did two things. It executed the function causing "The first function is running!/n" to be printed. It also assigned "This is the return value of the first function." to $first_result.
+Finally, we printed $first_result.
+
+That seemed to work as expected. In our terminal we saw:
+
+    The first function is running!
+    This is the return value of the first function.
+
+Let’s contrast that to the following example:
+
+    function announceRunning2()
+    {
+      return "This is the return value of the second function.";
+      echo "P.S., I love you";
+    }
+ 
+    $second_result = announceRunning2();
+    echo $second_result;
+
+In this example, the string "P.S., I love you" will never be printed! As soon as the return statement is reached, the function will end. So in the terminal, we’d see this output:
+
+    This is the return value of the second function.
+    
+--------------------
+6.Return Values
+----------------------
+
+The value returned from a function is just that—a value. This means it can be used in any manner we would normally use a value of that type. This can take some getting used to. Take a look at the following code:
+
+    function returnFive() 
+    {
+      return 5;
+    }
+
+    echo returnFive(); // Prints: 5
+
+In the code above we defined a silly function, returnFive(); all it does is return the number 5. Then we used echo to print the invoked function. The way that the computer executes functions and handles their returns can take getting used to, but it’s very similar to what we experienced with numbers and variables:
+
+    echo 5 + 3; // Prints: 8
+
+    $num = 5;
+
+    echo $num + 3; // Prints: 8
+
+    echo returnFive() + 3; // Prints: 8
+
+A computer evaluates 5 + 3 to 8. In the same manner, when a computer encounters a function invocation, it will execute the code in the function’s body and then evaluate to the function’s returned value. We need to think of functions as both what they do (the instructions in their code block) and what they return. 
+
+-----------------------------
+7.Returning NULL
+-----------------------------
+
+What about functions without return statements? Any function without a return returns a special value NULL. NULL is a special data type that stands for the absence of a value.
+
+    function returnNothing() 
+    {
+      echo "I'm running! I'm running!\n";
+    }
+
+    $result = returnNothing(); // Prints: I'm running! I'm running!
+
+    echo $result; // Nothing is printed
+
+Let’s walk through the code above:
+
+We defined a function returnNothing()— the returnNothing() function prints "I'm running! I'm running!\n" but has no return statement.
+We defined the variable $result and assigned it the value returned when we invoke returnNothing().
+Since we invoked the function, I'm running! I'm running! is printed.
+Because the function does not have a return statement, the value assigned to $result is NULL
+Finally, we print the $result variable, but, since its value is NULL, nothing is printed.
+
+---------------
+8.Parameters
+---------------
+
+Functions that do exactly the same thing every time they run can save us from having to repeat code in our programs, but functions can do more.
+
+In the beginning of this lesson, we wrote a greetLearner() function that printed the same friendly greeting every time it was invoked. That’s ok… we guess… But what we’d really like is to print a customized greeting. We can accomplish this by using parameters!
+
+When we define a function, we can also define parameters. A parameter is a variable which serves as a placeholder throughout the function’s code block. When the function is invoked, it’s invoked with a specific value. As the computer executes the function, it replaces each occurrence of the parameter with the value that was passed in. The actual value passed in is known as an argument.
+
+Let’s look at an example:
+
+    function sayCustomHello($name)
+    {
+        echo "Hello, $name!";
+    };
+ 
+    sayCustomHello("Aisle Nevertell"); // Prints: Hello, Aisle Nevertell!
+
+    sayCustomHello("Codecademy learner"); // Prints: Hello, Codecademy Learner!
+
+In the code above, we defined the sayCustomHello() function. It has a $name parameter. We invoked the function twice:
+
+The first time, we passed in "Aisle Nevertell" as the argument. During that invocation, the function assigned "Aisle Nevertell" to $name so Hello, Aisle Nevertell! was printed.
+The second time we invoked the function with the argument "Codecademy learner" so $name was assigned that value and Hello, Codecademy Learner! was printed.
+
+---------------------
+9.Multiple Parameters
+----------------------
+
+We can also define functions with multiple parameters.
+
+    function divide($num_one, $num_two)
+    {
+      return $num_one / $num_two;
+    };
+
+In the function above, we defined the divide() function. It takes in two number arguments and returns the result of dividing the first parameter by the second. Let’s look at how we invoke this function:
+
+    echo divide(12, 3); // Prints: 4
+
+    echo divide(3, 12); // Prints: 0.25
+
+In the code above:
+
+    First, we printed the value returned from invoking our divide() function with 12 and 3 as arguments.
+    Next, we printed the value returned from invoking our divide() function with 3 and 12.
+
+Notice that the order we pass in the arguments decides which parameters they correspond to—the first argument we pass into divide() will be assigned to $num_one and the second argument to $num_two.
+
+Invoking a function with fewer arguments than expected will result in an error:
+
+    function expectTwo($first, $second)
+    {
+      return "whatever";
+    }
+
+    echo expectTwo("test"); // Will result in an error
+
+----------------------
+10.Default parameters
+-----------------------
+
+Earlier we wrote a sayCustomHello() function which took in a $name and printed a custom greeting. If we tried to invoke this function without an argument, it would cause an error; the function is designed to run with one argument, and it won’t accept fewer.
+
+    function sayCustomHello($name)
+    {
+      echo "Hello, $name!";
+    };
+
+    sayCustomHello(); // Causes an error!
+
+We can be more flexible about parameters when defining our functions. We want to print "Hello, [name passed in]!" if an argument is provided, and "Hello, old chum!" only if no argument is passed in.
+
+We can accomplish this by providing a default value for the $name parameter:
+
+    function greetFriend($name = "old chum")
+    {
+      echo "Hello, $name!";
+    };
+
+    greetFriend("Marvin"); // Prints: Hello, Marvin!
+
+    greetFriend(); // Prints: Hello, old chum!
+
+In the code above, we defined the greetFriend() function. It has a parameter $name with a default value of “old chum”. We invoked the function twice:
+
+The first time, we passed in "Marvin" as the argument. During that invocation, the function assigned "Marvin" to $name so Hello, Marvin! was printed.
+The second time we invoked the function with no argument. Therefore, the default value of "old chum" was assigned to $name and Hello, old chum! was printed.
+
+--------------------------
+11.Pass By Reference
+-------------------------
+We can invoke functions with variables or with values directly. When we invoke a function with a variable as its argument, it’s as if we’re assigning the value held by that variable to the function’s parameter. We assign a copy of the value held by the argument variable. The variable argument and the parameter are distinct entities; changes made inside the function to the parameter will not affect the variable that was passed in:
+
+    function addX ($param)
+    {
+      $param = $param . "X";
+      echo $param;
+    };
+    $word = "Hello";
+    addX($word); // Prints: HelloX
+    echo $word; // Prints: Hello
+
+Let’s walk through the code above:
+
+We defined a function addX() which reassigns $param to its previous value appended with "X".
+We defined the variable $word and assigned it the value "Hello".
+We invoked addX() with $word as its argument.
+During the function invocation, $param was reassigned and the function printed "HelloX".
+When we printed $word after the function was invoked, it remained its original value: "Hello".
+
+If we do want to make permanent changes to a variable within a function, we can prepend the parameter name with the reference sign (&). In this way, we assign the parameter to be an alias for the argument variable. Both will refer to the same spot in memory, and changes to the parameter within the function will permanently affect the argument variable.
+
+    function addXPermanently (&$param)
+    {
+      $param = $param . "X";
+      echo $param;
+    };
+    $word = "Hello";
+    addXPermanently($word); // Prints: HelloX
+    echo $word; // Prints: HelloX
+
+In the addXPermanently() function we made $param a reference to the argument. When we invoked the function with $word the changes made to $param permanently affected the $word variable. 
+
+-----------------------------
+12.Variable scope
+-------------------------------
+Passing arguments into a function and returning values is a clear way to define the interface between the function and the rest of the code. This is the preferred method of exchanging information within a program since it is straightforward to see the data a function depends on from the function parameter list.
+
+Consider the following function. It returns a number of days left of feed depending on the number of chickens and the rate at which they consume it.
+
+    function calculateDaysLeft($feed_quantity, $number, $rate)
+    {
+      $result = $feed_quantity / ($number * $rate);
+      return $result;
+    }
+    echo calculateDaysLeft(300, 2, 30);
+
+You can immediately see that this function depends on three pieces of information to provide an answer:
+
+    $feed_quantity
+    $number
+    $rate
+
+We also echo what is returned by the function, instead of a variable from inside the function. If we attempted to:
+
+    echo $result;
+
+outside of the function, it would throw an error (Undefined variable). This is due to variable scope. Each function has its own local scope. This means that any variables defined within the function’s code block can only be accessed within the code block itself.
+
+However, if many functions depend on the same piece of information, it can be beneficial to have a variable that can be accessed anywhere without being passed in. To do this, we have to use the global keyword to tell PHP to look in the global scope for the variable, instead of the local scope of the function.
+
+    $feed_quantity = 300;
+    function calculateDaysLeft($number, $rate)
+    {
+      global $feed_quantity;
+      $result = $feed_quantity / ($number * $rate);
+      return $result;
+    }
+    echo calculateDaysLeft(2, 120);
+
+When using this pattern, it becomes slightly more difficult to determine what information this function depends on. Make sure to consider this trade-off when implementing your own functions.
+
+Note that the global keyword is not used when invoking functions. Once a function has been defined, it can be used within the same code block or even within other function code blocks. This code will print “This works!” to the console.
+
+    function first()
+    {
+      echo "This works!\n";
+    }
+    function second()
+    {
+      first();
+    }
+    second();
+    
+--------------------------------------------------------
+Quick Review C
+--------------------------------------------------------
+
+![Alt text](https://content.codecademy.com/courses/php-functions/php_functions_syntax.png)
+
+
+
