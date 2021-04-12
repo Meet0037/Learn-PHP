@@ -949,4 +949,29 @@ Quick Review C
 ![Alt text](https://content.codecademy.com/courses/php-functions/php_functions_syntax.png)
 
 
+------------------------------------------------------------------------------------
+D.Intro to Built-in PHP Functions
+-------------------------------------------------------------------------------------
 
+------------------------
+1.Introduction
+-------------------------
+
+If you’ve been paying attention so far, you might have picked up a theme in programming—shortcuts. Defining our own functions gives us an easier way to repeat similar code throughout a program. But some tasks are so common that the language comes with them by default.
+
+PHP comes with a number of built-in functions. These functions—also known as internal functions— can be invoked without writing them ourselves. In this lesson, we’ll explore some useful built-in functions and empower you to discover new built-in functions yourself. This will quickly become an essential part of your developer toolkit! 
+
+Ex:
+
+We’ve been using echo to print information to the console. echo is NOT a function (it’s a “language construct”). But, one little PHP quirk is that we can use it in a way that looks a lot like invoking a function—we can wrap an argument for echo in parentheses.
+
+echo can also be used to print multiple string arguments, but unlike a function, for this feature to work we must NOT wrap them in parentheses. Take a look at the code editor; we’ve provided some examples of using echo with and without parentheses. If you’d like, uncomment the broken code to see the error it causes.
+
+    <?php
+    echo("This works!\n");
+
+    echo "This also works!\n";
+
+    //echo("This would NOT work", "\n");   //Cause an error
+
+    echo "Buuuut!", " ", "This", " ", "does!", "\n";
