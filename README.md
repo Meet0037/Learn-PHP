@@ -975,3 +975,24 @@ echo can also be used to print multiple string arguments, but unlike a function,
     //echo("This would NOT work", "\n");   //Cause an error
 
     echo "Buuuut!", " ", "This", " ", "does!", "\n";
+
+
+-----------------------------
+2.Working with Variables
+----------------------------
+
+PHP includes useful built-in functions for getting information about variables. The gettype() function takes a variable as its argument and returns a string value representing the data type of the argument. 
+
+    $name = "Aisle Nevertell";
+    $age = 1000000;
+
+    echo gettype($name); // Prints: string
+
+    echo gettype($age); // Prints: integer
+    
+Notice that we didn’t write a definition for the gettype() function ourselves—it’s built into PHP. Since the function is included within the language itself, we can just call it anywhere within our PHP code.
+
+Let’s take a look at another built-in function! The var_dump() function also takes a variable argument. It prints details about the argument it receives.
+
+In the code above, we first used var_dump() to print information about the variable $name. string(15)—the variable’s type and length—were printed followed by the value held by the variable.
+
