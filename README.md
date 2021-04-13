@@ -1142,3 +1142,120 @@ The substr_count() function accepts two additional integer arguments—$offset a
 
     -------------------------------------
     Output: *~**~**~*You did it!*~**~**~* 
+
+------------------------------
+8.Finding Functions
+------------------------------
+
+Refer this example,
+
+       Index.php
+       
+           <?php
+    namespace Codecademy;
+
+    // Write your code below:
+    function convertToShout($str)
+    {
+      return strtoupper($str) . "!";
+    }
+
+    function tipGenerously($cost)
+    {
+      return ceil($cost * 1.2);
+    }
+
+    function calculateCircleArea($diameter)
+    {
+      return pi() * ($diameter/2)**2;
+    }
+
+    //Tests: 
+    echo convertToShout("woah there, buddy"); 
+    // Prints: WOAH THERE, BUDDY!
+    echo "\n";
+    echo convertToShout("i just don't know");
+    // Prints: I JUST DON'T KNOW!
+    echo "\n";
+    echo tipGenerously(100.00); // Prints: 120
+    echo "\n";
+    echo tipGenerously(982.27); // Prints: 1179
+    echo "\n";
+    echo calculateCircleArea(6); 
+    // Prints: 28.274333882308
+    echo "\n";
+    echo calculateCircleArea(29); 
+    // Prints 660.51985541725  
+    
+
+-----------------------
+Quick Review D
+------------------------
+
+    ---------------------
+    Simple syntaxes 
+    --------------- so far you have learned
+    
+        <?php
+    $string_var = "Check it out";
+    echo strtoupper($string_var) . "!\n";               
+
+    echo ceil(8.873);
+    echo "\n";                          
+
+    echo pi();
+    echo "\n";
+
+    echo str_pad("PHP", 30, "*^*-", STR_PAD_BOTH);
+    echo "\n";
+
+    echo getrandmax();
+    echo "\n";
+
+    echo rand();
+    echo "\n";
+
+    echo rand(1, 52);
+    echo "\n";
+
+    echo abs(-1287);
+    echo "\n";
+
+    echo round(8723.999);
+    echo "\n";
+
+    echo substr_count($string_var, " ");
+    echo "\n";
+
+    echo strrev("\n.pu ti peeK .taerg gniod er'uoY");
+
+    echo strtolower("SOON, tHiS WILL Look NoRmAL.\n");
+
+    echo str_repeat("There's no place like home.\n", 3);
+
+    echo gettype($string_var);
+    echo "\n";
+    echo var_dump($string_var);
+    
+    -----------------------------
+    Output
+    
+    CHECK IT OUT!
+    9
+    3.1415926535898
+    *^*-*^*-*^*-*PHP*^*-*^*-*^*-*^
+    2147483647
+    2063255896
+    12
+    1287
+    8724
+    2
+    You're doing great. Keep it up.
+    soon, this will look normal.
+    There's no place like home.
+    There's no place like home.
+    There's no place like home.
+    string
+    string(12) "Check it out"
+    
+    --------------------------------
