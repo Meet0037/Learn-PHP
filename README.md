@@ -1125,3 +1125,6 @@ The substr_count() function accepts two additional integer arguments—$offset a
     This task is designed to be a little challenging. Check out the (https://www.php.net/manual/en/function.str-pad.php) for more information, and take a look at the hint for more guidance.
 
     Note: One of the arguments (and its corresponding variable) is a PHP type we haven’t taught yet: pre-defined constants. You can solve this challenge without understanding them deeply. Predefined constants are similar to variables—they’re names which hold values. Unlike variables, predefined constants are defined by the language, not by us, and they’re constant, they can’t change value.
+    
+    
+https://www.php.net/manual/en/function.str-pad.php
