@@ -1263,3 +1263,123 @@ Quick Review D
 
 Point to be noted : void is the return type, which means it does not return a value.
 
+---------------------------------
+Ordered Arrays
+---------------------------------
+
+--------------------------
+1.Introduction
+--------------------------
+
+So far in our PHP programming, we’ve been thinking about individual pieces of data. We’ve seen how useful variables can be for holding a single value, for example. But as our programs grow more complicated, it’s often useful to organize data into collections of elements, and to work with those collections as individual entities.
+
+For example, when we build a to-do list, each item on the list is one piece of data, but the collection of all of the elements together is also a meaningful object. To help us store and manipulate related elements of data together, programming languages employ data structures.
+
+One type of data structure fundamental to computer science is an array, a list of ordered, stored data. In PHP, we refer to this data structure as an ordered array.
+
+The location of an element in an array is known as its index. The elements in an ordered array are arranged in ascending numerical order starting with zero—the index of the first array element is 0, the index of the second is 1, and so on.
+
+Fun fact: Outside of programming, it’s somewhat unusual to see a count that starts at 0 instead of 1, but there’s a reason you’ll see this in many programming languages. In the original implementation of the array data structure, the computer reserved side-by-side spots in memory for each element in an array, but it was too inefficient to keep track of all these memory locations. Therefore, the computer only stored the memory address of the very first element. The index was used to indicate how far away from the start of the array a given element was located. The first element of an array was zero spaces away from that stored address, hence it was at the 0th index.
+
+![Alt text](https://content.codecademy.com/courses/learn-cpp/vectors/11235.gif)
+
+-------------------------------
+2.Creating Arrays with array()
+-------------------------------
+
+We can construct ordered arrays with a built-in PHP function: array(). 
+
+We can construct ordered arrays with a built-in PHP function: array().
+
+The array() function returns an array. Each of the arguments with which the function was invoked becomes an element in the array (in the order they were passed in).
+
+Arrays are most useful when we store them in variables. We create an array variable the same way we create variables of other data types—with the assignment operator.
+
+    $my_array = array(0, 1, 2);
+
+In the code above, we constructed an array using the array() function which we captured with the $my_array variable. $my_array is an array with three elements: 0 is located in the 0th index, 1 in the 1st, and 2 in the 2nd.
+
+    PHP arrays can store elements of any data type:
+
+$string_array = array("first element", "second element");
+
+In the code above, $string_array holds two string elements. The string "first element" is located at the 0th location index, and the string "second element" is located at the 1st.
+
+PHP arrays can also store elements of multiple data types:
+
+    $mixed_array = array(1, "chicken", 78.2, "bubbles are crazy!");
+
+Above, $mixed_array holds four elements—some are strings while others are numbers.
+
+We can use the built-in PHP count() function to get the number of elements in an array. This is especially useful as we work with larger and more complicated arrays:
+
+    echo count($my_array); // Prints: 3
+    echo count($string_array); // Prints: 2
+    echo count($mixed_array); // Prints: 4
+    
+---------------------------------------
+3.Creating Arrays with Short Syntax
+---------------------------------------
+
+
+In addition to using array(), we can also create an array by wrapping comma-separated elements in square brackets ([ ]). This feature is sometimes referred to as short array syntax, and more closely resembles what you might see in other programming languages.
+
+    $number_array = [0, 1, 2];
+
+In the code above, we created the variable $number_array and assigned as its value an array containing the numbers 0, 1, and 2. The number 0 is located at the 0th location index, the number 1 at the 1st, and the number 2 and the 2nd.
+
+Let’s compare using short array syntax with invoking the array() function:
+
+    $string_array = array("first element", "second element");
+    $str_arr_short = ["first element", "second element"];
+
+    $mixed_array = array(1, "chicken", 78.2, "bubbles are crazy!");
+    $mix_arr_short = [1, "chicken", 78.2, "bubbles are crazy!"];
+
+Here, regardless of which method we used, we got the same results.
+
+When constructing arrays, we can also place each element on its own line to make it easier to read:
+
+    $long_array = [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ];
+
+
+------------------------------
+4.Printing Arrays
+-----------------------------
+
+Since arrays are a more complicated data type than strings or integers, printing them is slightly more challenging. Using echo won’t have the desired result:
+
+    $number_array = [0, 1, 2];
+    echo $number_array; // Prints: Array
+
+When we tried to use echo to print $number_array, it printed the word “Array” rather than the contents of the array. To print the contents of the array, we can use PHP built-in functions. The built-in print_r() function outputs arrays in a human readable format:
+
+    print_r($number_array);
+
+This will output the array in the following format:
+
+    Array
+    (
+        [0] => 0
+        [1] => 1
+        [2] => 2
+    )
+
+If we merely want to print the elements in the array listed, we can convert the array into a string using the built-in implode() function. The implode() function takes two arguments: a string to use between each element (the $glue), and the array to be joined together (the $pieces):
+
+    echo implode(", ", $number_array);
+
+This will output in the following format:
+
+    0, 1, 2 
+    
+--------------------------
+5.Accessing an Element
+----------------------------
