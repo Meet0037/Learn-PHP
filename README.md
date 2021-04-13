@@ -1259,3 +1259,7 @@ Quick Review D
     string(12) "Check it out"
     
     --------------------------------
+
+
+Point to be noted : void is the return type, which means it does not return a value.
+
