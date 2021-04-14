@@ -1612,4 +1612,158 @@ Quick Review E
         After unshift: horse, zebra, lizard, tiger, turtle
         We found GOLD! 
 
+------------------------------
+F.Associative Arrays
+------------------------------
+
+--------------------
+1.Introduction
+-------------------
+
+Ordered arrays are awesome when we have data that lends itself to being collected into an ordered (indexed) list. But data can be collected and organized in lots of ways. 
+
+Ordered arrays are awesome when we have data that lends itself to being collected into an ordered (indexed) list. But data can be collected and organized in lots of ways.
+
+Imagine we wanted a data structure to hold a bunch of information about ourself: our name, age, email address, birthday, social security number, and favorite food. We want all of these pieces of data in a single collection but not necessarily in any particular order. And it doesn’t make much sense to access these data items using indices, like in an ordered array. It would be hard to remember, for example, that index 0 corresponds to our name.
+
+Time to meet another fundamental concept in computer science—the map. A map associates keys with values. A key is a string or integer that we use to access a value (of any type). We could create a map with a key "fullname" that points to a value of "Aisle Nevertell"; this is much more understandable than associating the name with index 0. Whenever we need to access a value, we’ll be able to use the associated key to find it.
+
+The PHP array type that we’ve been working with is actually implemented as a map! In a PHP ordered array, the index locations are the keys. But the PHP array type also enables us to build more traditional map-like structures where we assign meaningful keys to values (as opposed to indices). We call data structures like this associative arrays.
+
+![Associative array](https://content.codecademy.com/courses/learn-javascript-objects/javascript_illo.svg)
+
+
+------------------------
+2.Associative Arrays
+------------------------
+
+Associative arrays are collections of key=>value pairs. The key in an associative array must be either a string or an integer. The values held can be any type. We use the => operator to associate a key with its value. 
+
+![Alt text](https://content.codecademy.com/courses/learn-javascript-objects/key%20value.svg)
+
+We can think of keys as pointing to their values since the key points the computer to the space in memory where the value is stored.
+
+    $my_array = ["panda" => "very cute", "lizard" => "cute", "cockroach" => "not very cute"];
+
+In the code above, we created an associative array using short array syntax. $my_array has three key=>value pairs:
+
+The key "panda" points to the value "very cute".
+The key "lizard" points to the value "cute".
+The key "cockroach" points to the value "not very cute".
+
+We can also build associative arrays using the PHP array() function.
+
+    $about_me = array(
+        "fullname" => "Aisle Nevertell",
+        "social" => 123456789
+    );
+
+In the code above, we created an associative array, $about_me, with two key=>value pairs:
+
+The key "fullname" points to the value "Aisle Nevertell".
+The key "social" points to the value 123456789.
+
+
+------------------------------
+3.Printing Associative Arrays
+------------------------------
+
+As with ordered arrays, using echo to print an entire associative array is not very useful:
+
+    $grades = [
+        "Jane" => 98,
+        "Lily" => 74,
+        "Dan" => 88,
+    ];
+
+    echo $grades; // Prints: Array
+
+We can combine each of the values contained by the array into a single string and use echo to print that:
+
+    echo implode(", ", $grades); // Prints: 98, 74, 88 
+
+A problem with this technique is that it only displays the values. We don’t see the keys in the array or the relationships between the keys and values. To display this information, we can use the built-in print_r() function:
+
+    print_r($grades);
+
+The above code will produce the following output:
+
+    Array
+    (
+        [Jane] => 98
+        [Lily] => 74
+        [Dan] => 88
+    )
+    
+    
+-----------------------------------
+4.Accessing and Adding Elements
+------------------------------------
+
+We access the value a given key points to using square brackets ([]):
+
+    $my_array = ["panda"=>"very cute", "lizard"=>"cute", "cockroach"=>"not very cute"];
+    echo $my_array["panda"]; // Prints: very cute
+
+In the code above, we accessed the value "very cute" using its key, "panda".
+
+To add new elements to an associative array, we use the assignment operator (=):
+
+    $my_array["capybara"] = "cutest";
+    echo $my_array["capybara"]; // Prints: cutest
+
+In the code above, we added a fourth key value pair to the array. We accessed the new value "cutest" using its key "capybara" and printed it using echo.
+
+The computer treats code between the square brackets as an expression, so that code will be evaluated before the array is accessed. This enables us to use variables, functions, and operators within the square brackets:
+
+    $favorites = ["favorite_food"=>"pizza", "favorite_place"=>"my dreams", "FAVORITE_CASE"=>"CAPS","favorite_person"=>"myself"];
+
+    echo  $favorites["favorite" . "_" . "food"]; 
+    // Prints: pizza
+
+    $key =  "favorite_place";
+    echo  $favorites[$key];  
+    // Prints: my dreams
+
+    echo $favorites[strtoupper("favorite_case")];
+    // Prints: CAPS
+
+
+----------------------------------
+5.Changing and Removing Elements 
+---------------------------------
+
+The same syntax that adds new array elements can be used to change existing elements:
+
+    $new_arr = ["first" => "I am first!", "second" => "I am second!"]; 
+
+    $new_arr["third"] = "I am third!";
+
+    echo $new_arr["third"]; // Prints: I am third!
+
+    $new_arr["third"] = "I am the *NEW* third!";
+
+    echo $new_arr["third"]; // Prints: I am the *NEW* third!
+
+In the above code, we use the same syntax to add a key=>value pair ("third" => "I am third!") as we do to assign that key a new value ("third" => "I am the *NEW* third!").
+
+Since PHP will allow us to add a new key=>value pair or change an existing value using exactly the same code, we’ll need to use caution to avoid accidentally overwriting an existing value.
+
+We can remove a key=>value pair entirely using the PHP unset() function. Note: if the key used doesn’t exist in the array, then nothing happens.
+
+    $nums = ["one" => 1,"two"=> 2];
+
+    echo implode(", ", $nums); // Prints: 1, 2
+
+    unset($nums["one"]);
+
+    echo implode(", ", $nums); // Prints: 2
+
+In the code above, we created an associative array with two key => value pairs. We then removed the pair "one" => 1 using the unset() function. 
+
+--------------------------
+6.Numerical Keys
+--------------------------
+
+
 
