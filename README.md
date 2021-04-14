@@ -1589,27 +1589,27 @@ Quick Review E
     Output:
 
         Array
-    (
-        [0] => 2
-        [1] => 3
-        [2] => 5
-        [3] => 7
-        [4] => 11
-        [5] => 13
-        [6] => 17
-    )
+        (
+            [0] => 2
+            [1] => 3
+            [2] => 5
+            [3] => 7
+            [4] => 11
+            [5] => 13
+            [6] => 17
+        )
 
 
-    dog, cat, turtle, cow
-    My favorite animal: dog
-    Before pop: dog, tiger, turtle, cow
-    After pop: dog, tiger, turtle
-    Before push: 2, 3, 5, 7, 11, 13, 17, 19
-    After push: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41
-    Before shift: dog, tiger, turtle
-    After shift: tiger, turtle
-    Before unshift: tiger, turtle
-    After unshift: horse, zebra, lizard, tiger, turtle
-    We found GOLD! 
-    
-    
+        dog, cat, turtle, cow
+        My favorite animal: dog
+        Before pop: dog, tiger, turtle, cow
+        After pop: dog, tiger, turtle
+        Before push: 2, 3, 5, 7, 11, 13, 17, 19
+        After push: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41
+        Before shift: dog, tiger, turtle
+        After shift: tiger, turtle
+        Before unshift: tiger, turtle
+        After unshift: horse, zebra, lizard, tiger, turtle
+        We found GOLD! 
+
+
