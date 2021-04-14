@@ -1264,7 +1264,7 @@ Quick Review D
 Point to be noted : void is the return type, which means it does not return a value.
 
 ---------------------------------
-Ordered Arrays
+E.Ordered Arrays
 ---------------------------------
 
 --------------------------
@@ -1383,3 +1383,233 @@ This will output in the following format:
 --------------------------
 5.Accessing an Element
 ----------------------------
+
+The individual elements in an array can be accessed using the array variable’s name, and the location index surrounded by square brackets ([]), for example:
+
+    $my_array = ["tic", "tac", "toe"];
+
+    echo $my_array[1]; // Prints: tac
+
+This process is sometimes referred to as indexing an array.
+
+Remember the computer evaluates variables it encounters (outside of assignment): it replaces them with the values they hold. Let’s look at an example of indexing an array with a number variable:
+
+    $num_var = 2;
+
+    $important_info = ["talking chicken", 181, "magnets?!", 99];
+
+    echo $important_info[$num_var]; // Prints: magnets?!
+    
+------------------------------
+6.Adding and Changing Elements
+-----------------------------
+
+We can make adjustments to existing arrays—we don’t have to create a new array when we want our array to change.
+
+We add elements to the end of an array by taking the variable name and appending square brackets ([]), the assignment operator (=), and the element we want to add:
+
+    $string_array = ["first element", "second element"];
+
+    $string_array[] = "third element";
+ 
+    echo implode(", ", $string_array); 
+    // Prints: first element, second element, third element 
+
+We can also reassign the individual elements in an array:
+
+    $string_array = ["first element", "second element", "third element"];
+
+    $string_array[0] = "NEW! different first element";
+
+    echo $string_array[0]; // Prints: NEW! different first element"
+
+In the code above, we replaced the original string held in the array ("first element") with a new string value: "NEW! different first element".
+
+-----------------------------------------
+7.More Array Methods: Pushing and Popping
+-----------------------------------------
+
+In the previous exercise, we learned how to add single array elements and to change array elements at a given index. PHP also provides us with built-in methods for removing array elements, and for adding many elements at once.
+
+The array_pop() function takes an array as its argument. It removes the last element of an array and returns the removed element.
+
+    $my_array = ["tic", "tac", "toe"];
+    array_pop($my_array); 
+    // $my_array is now ["tic", "tac"]
+    $popped = array_pop($my_array); 
+    // $popped is "tac"
+    // $my_array is now ["tic"]
+
+Note that array_pop() doesn’t just set the last element to NULL. It actually removes it from the array, meaning that array’s length will decrease by one (which we can verify using count()).
+
+The array_push() function takes an array as its first argument. The arguments that follow are elements to be added to the end of the array. array_push() adds each of the elements to the array and returns the new number of elements in the array.
+
+    $new_array = ["eeny"];
+    $num_added = array_push($new_array, "meeny", "miny", "moe"); 
+    echo $num_added; // Prints: 4
+    echo implode(", ", $new_array); // Prints: eeny, meeny, miny, moe 
+    
+----------------------------
+8.Shifting and Unshifting
+----------------------------
+
+We saw that array_pop() and array_push() deal exclusively with the end of the array (the index at the length of the array minus 1). PHP also provides functions for adding and removing elements from the beginning of an array (index 0).
+
+The array_shift() function removes the first element of an array and returns that value. Each of the elements in the array will be shifted down an index. For example, the element that was previously at the 3rd index will now be located at the 2nd.
+
+    $adjectives = ["bad", "good", "great", "fantastic"];
+    $removed = array_shift($adjectives); 
+    echo $removed; //Prints: bad
+    echo implode(", ", $adjectives); // Prints: good, great, fantastic 
+
+Just like array_pop(), array_shift() reduces the length of the array, and the deleted element is gone for good.
+
+The array_unshift() function takes an array as its first argument. The arguments that follow are elements to be added to the beginning of the array. It returns the new number of elements in the array.
+
+    $foods = ["pizza", "crackers", "apples", "carrots"];
+    $arr_len = array_unshift($foods, "pasta", "meatballs", "lettuce"); 
+    echo $arr_len; //Prints: 7
+    echo implode(", ", $foods); 
+    // Prints: pasta, meatballs, lettuce, pizza, crackers, apples, carrots
+
+-----------------------------
+9.Nested Arrays
+-----------------------------
+
+We mentioned that arrays can hold elements of any type—this even includes other arrays! We can use chained operations to access and change elements within a nested array:
+
+    $nested_arr = [[2, 4], [3, 9], [4, 16]];
+    $first_el = $nested_arr[0][0];
+    echo $first_el; // Prints: 2
+
+Above, $nested_arr is an array with three array elements. The first, located at the 0th index, is the array [2, 4]. The expression $nested_arr[0] returns that array. We then index that array’s first element by appending an additional [0].
+
+This can take practice to get used to. One helpful technique is to act like the computer; evaluate each part of the expression from left to right. By breaking down a complex expression into its simpler parts, it becomes easier to understand. Let’s walk through a more complicated example together:
+
+    $very_nested = [1, "b", 33, ["cat", 6.1, [9, "LOST!", 6], "mouse"], 7.1];
+
+We want to change the element which is currently "LOST!" to "Found!". Let’s breakdown the steps:
+
+We need the outermost array first: $very_nested[3] evaluates to the array ["cat", 6.1, [9, "LOST!", 6], "mouse"]
+Next we need the array located at the 2nd location index: $very_nested[3][2] evaluates to the array [9, "LOST!", 6]
+And finally, the element we’re looking for: $very_nested[3][2][1] evaluates to "LOST!"
+
+    $very_nested[3][2][1] = "Found!";
+    
+---------------------
+Quick Review E
+----------------------
+
+
+-> Arrays are ordered collections of data that are a type of data structure fundamental to computer science.
+
+-> In PHP, we refer to this data structure as ordered arrays.
+
+-> The location of an element in an array is known as its index.
+
+-> The elements in an ordered array are arranged in ascending numerical order starting with index zero.
+
+-> We can construct ordered arrays with a built-in PHP function: array().
+
+-> We can construct ordered arrays with short array syntax, e.g. [1,2,3].
+
+-> We can print arrays using the built-in print_r() function or by converting them into strings using the implode() function.
+
+-> We use square brackets ([]) to access elements in an array by their index.
+
+-> We can add elements to the end of an array by appending square brackets ([]) to an array variable name and assigning the value with the assignment operator (=).
+
+-> We can change elements in an array using array indexing and the assignment operator.
+
+-> The array_pop() function removes the last element of an array.
+
+-> The array_push() function adds elements to the end of an array.
+
+-> The array_shift() function removes the first element of an array.
+
+-> The array_unshift() function adds elements to the beginning of the array.
+
+-> We can use chained square brackets ([]) to access and change elements within a nested array.
+
+    -------------------------------
+    Simple syntaxes to be remember
+    -------------------------------
+    
+    <?php
+    // Using array() to construct an array:
+    $prime_numbers = array(2, 3, 5, 7, 11, 13, 17);  
+
+    // Using short array syntax:
+    $animals = ["dog", "cat", "turtle", "cow"];  
+
+    // Printing with print_r():
+    print_r($prime_numbers);
+
+    echo "\n\n";
+
+    // Printing with echo and implode()
+    echo implode(", ", $animals);
+
+    // Adding an element with square brackets:
+    $prime_numbers[] = 19;
+
+    // Accessing an array element:
+    $favorite_animal = $animals[0];
+    echo "\nMy favorite animal: " . $favorite_animal;
+
+    // Reassigning an element:
+    $animals[1] = "tiger";
+
+    // Using array_pop():
+    echo "\nBefore pop: " . implode(", ", $animals);
+    array_pop($animals);
+    echo "\nAfter pop: " . implode(", ", $animals);
+
+    // Using array_push():
+    echo "\nBefore push: " . implode(", ", $prime_numbers);
+    array_push($prime_numbers, 23, 29, 31, 37, 41);
+    echo "\nAfter push: " . implode(", ", $prime_numbers);
+
+    //Using array_shift():
+    echo "\nBefore shift: " . implode(", ", $animals);
+    array_shift($animals);
+    echo "\nAfter shift: " . implode(", ", $animals);
+
+    //Using array_unshift():
+    echo "\nBefore unshift: " . implode(", ", $animals);
+    array_unshift($animals, "horse", "zebra", "lizard");
+    echo "\nAfter unshift: " . implode(", ", $animals);
+
+    //Using chained operations with nested arrays:
+    $treasure_hunt = ["garbage", "cat", 99, ["soda can", 8, ":)", "sludge", ["stuff", "lint", ["GOLD!"], "cave", "bat", "scorpion"], "rock"], "glitter", "moonlight", 2.11];
+
+    echo "\nWe found " . $treasure_hunt[3][4][2][0];
+
+    -------------------------
+    Output:
+
+        Array
+    (
+        [0] => 2
+        [1] => 3
+        [2] => 5
+        [3] => 7
+        [4] => 11
+        [5] => 13
+        [6] => 17
+    )
+
+
+    dog, cat, turtle, cow
+    My favorite animal: dog
+    Before pop: dog, tiger, turtle, cow
+    After pop: dog, tiger, turtle
+    Before push: 2, 3, 5, 7, 11, 13, 17, 19
+    After push: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41
+    Before shift: dog, tiger, turtle
+    After shift: tiger, turtle
+    Before unshift: tiger, turtle
+    After unshift: horse, zebra, lizard, tiger, turtle
+    We found GOLD! 
+    
+    
