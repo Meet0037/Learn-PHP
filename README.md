@@ -1695,7 +1695,6 @@ The above code will produce the following output:
         [Dan] => 88
     )
     
-    
 -----------------------------------
 4.Accessing and Adding Elements
 ------------------------------------
@@ -1764,6 +1763,153 @@ In the code above, we created an associative array with two key => value pairs. 
 --------------------------
 6.Numerical Keys
 --------------------------
+Associative arrays can use integers as keys, in addition to strings.
+
+    $num_array = [1000 => "one thousand", 100 => "one hundred", 600 => "six hundred"];
+    echo $num_array[1000]; // Prints: one thousand
+
+When we build ordered arrays in PHP, the association with numerical keys to values is done for us automatically. The first element is associated with the key 0, the second with 1, and so on. But ordered arrays are still the same structure as associative arrays. We can mix and match:
+
+    $ordered = [99, 1, 7, 8];
+    $ordered["special"] = "Cool!";
+    echo $ordered[3]; // Prints: 8
+    echo $ordered["special"]; // Prints: Cool!
+
+When we add an element to an array without specifying a key (e.g. using array_push()), PHP will associate it with the “next” integer key. If no integer keys have been used, it will associate it with the key 0, otherwise it will associate it one more than the largest integer used thus far. This behavior is the same whether the array is being used as an ordered array or an associative array. Let’s look at an example:
+
+    $num_array = [1000 => "one thousand", 100 => "one hundred", 600 => "six hundred"];
+    $num_array[] = "New Element in \$num_array";
+    echo $num_array[1001]; // Prints: New Element in $num_array
+ 
+    $animals_array = ["panda"=>"very cute", "lizard"=>"cute", "cockroach"=>"not very cute"];
+    array_push($animals_array, "New Element in \$animals_array");
+    echo $animals_array[0]; // Prints: New Element in $animals_array
+
+Even though associative arrays and ordered arrays are technically the same, we recommend treating them as separate data types. Only use the empty square brackets syntax (or functions like array_push()) with ordered arrays.
+
+But, for now, let’s break this rule a little to get used to the ins and outs of PHP arrays!
+
+    -------------------------
+    Let's see one 
+    
+    Example:
+
+        <?php
+        namespace Codecademy;
+
+        // Write your code below:
+        $hybrid_array = ["cat", "dog", 9, 18.2];
+
+        $hybrid_array[8] = "five more";
+
+        print_r($hybrid_array);
+
+        array_push($hybrid_array, rand());
 
 
+        echo $hybrid_array[9];
+
+    ------------------------------
+    Output
+    
+    Array
+    (
+        [0] => cat
+        [1] => dog
+        [2] => 9
+        [3] => 18.2
+        [8] => five more
+    )
+    1348309497
+    
+    
+--------------------------------
+7.Joining Arrays
+--------------------------------
+
+PHP also lets us combine arrays. The union (+) operator takes two array operands and returns a new array with any unique keys from the second array appended to the first array.
+
+    $my_array = ["panda" => "very cute", "lizard" => "cute", "cockroach" => "not very cute"];
+    $more_rankings = ["capybara" => "cutest", "lizard" => "not cute", "dog" => "max cuteness"];
+    $animal_rankings = $my_array + $more_rankings;
+
+The $animal_rankings we created above will have each of the key=>value pairs from $my_array. In addition, it will contain the key=>value pairs from $more_rankings: "capybara"=>"cutest" and "dog"=>"max cuteness". However, since "lizard" is not a unique key, $animal_rankings["lizard"] will retain the value of $my_array["lizard"] (which is "cute").
+
+The union operator can be a little tricky… consider the following union:
+
+    $number_array = [8, 3, 7];
+
+    $string_array = ["first element", "second element", "third element"];
+
+    $union_array = $number_array + $string_array;
+
+What values does $union_array hold? It has the elements 8, 3, and 7. Since the two arrays being joined have identical keys (0, 1, and 2), no values from the second array, $string_array, are included in $union_array.
+
+---------------------------------
+8.Assign by Value or by Reference
+---------------------------------
+
+There are two ways to assign one variable to another:
+
+    -> By value—this creates two variables which hold copies of the same value but remain independent entities.
+    
+    -> By reference—this creates two variable names (aliases) which point to the same space in memory. They cannot be modified separately!
+
+This remains true when dealing with array variables:
+
+    $favorites = ["food"=>"pizza", "person"=>"myself", "dog"=>"Tadpole"];
+    $copy = $favorites;
+    $alias =& $favorites;
+    $favorites["food"] = "NEW!";
+ 
+    echo $favorites["food"]; // Prints: NEW!
+    echo $copy["food"]; // Prints: pizza
+    echo $alias["food"]; // Prints: NEW!
+
+When passing arrays into functions, both built-in functions and those we write ourselves, we’ll want to be conscious of whether the arrays are being passed by value or by reference.
+
+    function changeColor ($arr) 
+    {
+      $arr["color"] = "red";    
+    }
+    $object = ["shape"=>"square", "size"=>"small", "color"=>"green"];
+    changeColor ($object);
+    echo $object["color"]; // Prints: green
+
+Our function above doesn’t accept its array argument by reference. Therefore, $arr is merely assigned a copy of the argument’s value. This copy array is changed when the function is invoked, but that doesn’t affect the orginal argument array ($object). To do that, we’d need to pass it by reference:
+
+    function reallyChangeColor (&$arr) 
+    {
+      $arr["color"] = "red";    
+    }
+    $object = ["shape"=>"square", "size"=>"small", "color"=>"green"];
+    reallyChangeColor ($object);
+    echo $object["color"]; // Prints: red
+    
+----------------------
+Quick Review F
+----------------------
+
+
+-> Associative arrays are data structures in which string or integer keys are associated with values.
+
+-> We use the => operator to associate a key with its value. $my_array = ["panda"=>"very cute"]
+
+-> To print an array’s keys and their values, we can use the print_r() function.
+
+-> We access the value associated with a given key by using square brackets ([ ]). For example: $my_array["panda"] will return "very cute".
+
+-> We can assign values to keys using this same indexing syntax and the assignment operator (=): $my_array["dog"] = "good cuteness";
+
+-> This same syntax can be used to change existing elements. $my_array["dog"] = "max cuteness";
+
+
+-> We can remove a key=>value pair entirely using the PHP unset() function.
+
+-> Keys can be integers. In fact, ordered arrays are just arrays in which integer keys have been assigned to the values automatically.
+
+-> In PHP, associative arrays and ordered arrays are different uses of the same data type.
+
+-> The union (+) operator takes two array operands and returns a new array with any unique keys from the second array appended to the first array.
+When writing function with array parameters, we can pass the array by value or by reference depending on our intent.
 
