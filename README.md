@@ -1913,3 +1913,24 @@ Quick Review F
 -> The union (+) operator takes two array operands and returns a new array with any unique keys from the second array appended to the first array.
 When writing function with array parameters, we can pass the array by value or by reference depending on our intent.
 
+
+Now we are going to see File handling concept in PHP....
+Let's start with basic
+
+-----------------------
+G.PHP and HTML
+-----------------------
+
+PHP can be used in many ways. It can be used to write standalone programs that run in our terminal:
+
+    echo "Hello, World!";
+
+When run, the code above will output the following to the terminal:
+
+    Hello, World!
+
+But PHP was designed as a back-end web development language—specifically it was designed to work well with HTML. PHP allowed a convenient way for developers to create HTML templates and programatically fill them out in order to send customized HTML to visitors of their sites.
+
+PHP has evolved into a powerful programming language being used for more than templating HTML, but using PHP combined with HTML remains an important part of many web developers’ skill sets.
+
+In this lesson, we’ll delve into the difference between the front-end and the back-end and learn how to use PHP to generate HTML.
