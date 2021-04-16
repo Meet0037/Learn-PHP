@@ -1991,3 +1991,189 @@ When we use echo within HTML we’re no longer printing to the terminal, rather 
 
 Wouldn’t it have been simpler to just add <h1>Oh hi!</h1> directly? Yep. This example certainly doesn’t show us why we’d want to use PHP within our HTML. As we learn to develop more robust PHP scripts and harness some of the language’s more complex features, we’ll grow to understand how powerful it can be. 
 
+------------------------
+5.Beyond Strings
+----------------------
+
+We can also incorporate more complex PHP within our scripts.
+
+    <?php
+    $lucky_number = 5 * 2 - 1;
+
+    echo "<h1>Your lucky number is ${lucky_number}</h1>";
+    ?>
+
+The code above will be translated into HTML with a header that reads: Your lucky number is 9.
+
+We can incorporate all the language features we know about PHP, including functions:
+
+    <?php
+    function makeHeaderGreeting ($name){
+      return "<h1>Hello, ${name}!</h1>";
+    }
+
+    echo makeHeaderGreeting("World");
+    ?>
+
+The code above will be translated into HTML with a header that reads: Hello, World!.
+
+-----------------------
+Quick Review G
+-----------------------
+
+Let’s review what we’ve learned so far:
+
+-> The front-end of a website consists of JavaScript, CSS, HTML, images, and other static assets sent to the client.
+
+-> When we navigate to a website the browser is the client, and it sends a request to the back-end for all the assets needed to view and interact with the website.
+
+-> The back-end consists of a web server and all the logic and data needed to create and maintain a website or web application.
+
+-> PHP is a back-end language.
+
+-> PHP can be used to generate HTML files.
+
+-> We embed PHP scripts within HTML by inserting PHP code between the opening (<?php) and closing (?>) tags.
+
+
+----------------------------
+H.HTML Form Handling in PHP
+----------------------------
+
+-----------------------------
+1.Introduction
+-----------------------------
+
+Presenting and interacting with HTML is one of the primary uses of PHP. Our server takes each PHP file (in our examples, this is index.php), and translates them into HTML to present to the client in their web browser.
+
+This process allows for developers to create customized experiences for individual users.
+
+PHP also provides the capability to handle input from users through HTML forms in a straightforward manner. Before we cover working with forms, take a minute to review how PHP code can be embedded into HTML:
+
+    <p>This HTML will get delivered as is</p>
+    <?php echo "<p>PHP interprets this and turns it into HTML</p>";?>
+    <p>This HTML will get delivered as is</p>
+
+This example uses the PHP opening (<?php) and closing (?>) tags to insert PHP code. It uses echo to add text to the HTML. This practice is so common that PHP provides a shorthand syntax. Instead of using <?php echo to begin the statement, you can simply use <?=.
+
+Our example becomes: (Noted)
+
+    <p>This HTML will get delivered as is</p>
+    <?="<p>PHP interprets this and turns it into HTML</p>";?>
+    <p>This HTML will get delivered as is</p>
+    
+    
+-----------------------
+2.Request Superglobals
+------------------------
+
+Since PHP was built with web development as a primary use case, it has functionality to ease processing of HTML requests. When the front end client makes a request to a backend PHP server, several superglobals related to the request are available to the PHP script. Superglobals are automatic global variables which are available in all scopes throughout a script.
+
+The list of superglobals in PHP includes the following:
+
+    $GLOBALS
+    $_SERVER
+    $_GET
+    $_POST
+    $_FILES
+    $_COOKIE
+    $_SESSION
+    $_REQUEST
+    $_ENV
+
+For this lesson, we are focusing on three of these:
+
+    $_GET - this contains an associative array of variables passed to the current script using query parameters in the URL
+    $_POST - this contains an associative array of variables passed to the current script using a form submitted using the “POST” method
+    $_REQUEST - this contains the contents of $_GET, $_POST, and $_COOKIE
+
+---------------------------
+3.GET Form Handling
+---------------------------
+
+In HTML, setting a form’s method attribute to "get" specifies that you would like the form to be submitted using the GET method. When using this method, the form entries are passed as parameters in a URL query string.
+
+For example, this is a request to www.codecademy.com with the URL parameters first (set to the value "ellen") and last (set to the value "richards"):
+
+    www.example.com/?first=ellen&last=richards
+ 
+
+The parameter names (first and last) come from the name attribute of each form input.
+
+For example, the following form could be used to collect an individual’s name using the GET method:
+
+    <form method="get">
+    First name: <input type="text" name="first">
+    <br>
+    Last name: <input type="text" name="last">
+    <br>
+    <input type="submit" value="Submit Name">
+    </form>
+
+When the form is submitted, the form data is available in the $_GET superglobal array. (The data is also accessible using $_REQUEST if you do not care about which method was used by the client.)
+
+In our example, if a user typed “ellen” into the first input and “richards” into the last input, then print_r($_GET) would look like this:
+    
+    Array ( [first] => ellen [last] => richards )
+    
+-----------------------
+4.POST Form Handling
+-----------------------
+
+In HTML, setting a form’s method attribute to "post" specifies that you would like the form to be submitted using the POST method. When using POST to submit forms, you will not see the URL change. The form data is sent using the headers of the HTTP request instead of URL parameters.
+
+To use the data from the form in PHP, each input needs to have a unique name attribute.
+
+When the form is submitted, the input data is available in the $_POST superglobal. Similar to GET, it is also available in $_REQUEST.
+
+For example, if a user typed “Katharine” into the first input and “McCormick” into the last input of this form:
+
+    <form method="post">
+    First name: <input type="text" name="first">
+    <br>
+    Last name: <input type="text" name="last">
+    <br>
+    <input type="submit" value="Submit Name">
+    </form>
+
+The URL would not change and print_r($_POST) would look like this:
+
+    Array ( [first] => Katharine [last] => McCormick )
+    
+------------------------------
+6.Using the "action" Attribute
+-------------------------------
+Until now, we’ve been handling the response to the form submission on the same page as the form itself. Often times there is no need to present a user with the same form over and over again. It might make sense to move them to a new page or thank them for their submission.
+
+This is where the action form attribute comes into play. Since we have not specified an action yet, HTML defaults to submitting the form data back to the same script that defined the form.
+
+If you would like to have the user navigate to a new URL and handle the form input there, you can specify the URL in the form’s action attribute. Since the action attribute specifies a relative URL, you can also enter the name of a PHP file in the same directory as the current one.
+
+For example, given this directory:
+
+    index.php
+    receive_form.php
+
+To handle a form using receive_form.php from index.php, you would use the following:
+
+    <form method="get" action="receive_form.php">
+
+This works for both GET and POST methods.
+
+---------------------
+Quick Review H
+---------------------
+
+You’re ready to start handling forms in PHP!
+
+To review:
+
+-> <?= is shorthand for <?php echo.
+-> PHP provides superglobals which can be accessed anywhere in the script.
+-> $_GET is an associative array containing data from a GET request.
+-> $_POST is an associative array containing data from a POST request.
+-> $_REQUEST is an associative array containing data from both GET and POST requests. It should only be used if you don’t care which method was used.
+-> The array keys in the PHP request superglobals are set by the name attributes in the HTML form, which need to be unique.
+-> The action attribute is used to specify which file should handle data from the form request.
+
+
