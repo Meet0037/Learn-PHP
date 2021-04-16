@@ -1934,3 +1934,60 @@ But PHP was designed as a back-end web development language—specifically it wa
 PHP has evolved into a powerful programming language being used for more than templating HTML, but using PHP combined with HTML remains an important part of many web developers’ skill sets.
 
 In this lesson, we’ll delve into the difference between the front-end and the back-end and learn how to use PHP to generate HTML.
+
+
+---------------------------
+2.What is the Front-End?
+---------------------------
+
+Let’s talk about the difference between a front-end language and a back-end language. HTML is a front-end language, but what exactly does that mean?
+
+When navigating to a website from our web browser, the browser makes a request for content on our behalf. What we see and experience as a single website is actually composed of a number of files which come together to form a cohesive experience.
+
+The files we receive consist of JavaScript, CSS, HTML, images, and other static assets. A static asset is a file that doesn’t change. When we navigate to a webpage, these assets are sent to a browser.
+
+You may have heard front-end development referred to as client-side development. In web development, we are typically referring to the browser as the client. A human may be experiencing the website, but it’s the browser that makes requests for information and receives the responses.
+
+The front-end of a website or web application consists of all the elements of the website that are sent to the client upon request. But something has to be listening for those requests and deciding what to send — it’s the back-end of the website that does all that and more.
+
+----------------------------
+3.What is the Back-End?
+----------------------------
+
+The back-ends of websites will differ depending on the needs of the site. Typically, they’ll have at least the following components:
+
+A web server: a web server is a computer or program which listens for requests from clients and sends back responses. This component is well suited to handling delivery of static content.
+
+An application server: this is actually often a collection of programming logic which is needed to deliver dynamic content to a client. The application server will often handle other tasks such as site security and interacting with data.
+
+A data base: important information like usernames and passwords has to be stored and accessed somewhere. A large web application will often have multiple databases to store all different types of data needed to run the site smoothly.
+
+PHP can be used in many capacities in the back-end. However, in this lesson, we’ll get started small by focussing on one small role the PHP application server can play in generating HTML which the web server will send to a client.
+
+![Alt text](https://content.codecademy.com/courses/updated_images/NodeBackEndFrontEnd_Update_1.gif)
+
+--------------------------
+4.PHP in HTML
+-------------------------
+
+We can embed PHP scripts within HTML documents with the opening tag <?php and the closing tag ?>. The PHP processor will read the entire file, evaluate any PHP, translate it into HTML, and pass it off to the web server so it can be sent to the client.
+
+Consider the following code:
+
+    <html>
+     <head>
+      <title>My First PHP Site</title>
+     </head>
+     <body>
+     <?php 
+        echo "<h1>Oh hi!</h1>"; 
+      ?> 
+     </body>
+    </html>
+
+In the code above, the line echo "<h1>Oh hi!</h1>" will generate an HTML header of Oh hi!.
+
+When we use echo within HTML we’re no longer printing to the terminal, rather we’re outputting to the HTML document.
+
+Wouldn’t it have been simpler to just add <h1>Oh hi!</h1> directly? Yep. This example certainly doesn’t show us why we’d want to use PHP within our HTML. As we learn to develop more robust PHP scripts and harness some of the language’s more complex features, we’ll grow to understand how powerful it can be. 
+
