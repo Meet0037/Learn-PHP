@@ -2169,11 +2169,236 @@ You’re ready to start handling forms in PHP!
 To review:
 
 -> <?= is shorthand for <?php echo.
+
 -> PHP provides superglobals which can be accessed anywhere in the script.
+
 -> $_GET is an associative array containing data from a GET request.
+
 -> $_POST is an associative array containing data from a POST request.
+
 -> $_REQUEST is an associative array containing data from both GET and POST requests. It should only be used if you don’t care which method was used.
+
 -> The array keys in the PHP request superglobals are set by the name attributes in the HTML form, which need to be unique.
+
 -> The action attribute is used to specify which file should handle data from the form request.
+
+
+------------------------------------
+I.Booleans and Comparison Operators
+------------------------------------
+
+-----------------
+1.Introduction
+----------------
+
+Have you ever noticed that hyperlinks change color after you click them? If the link has been clicked, then the web browser renders it in purple, rather than blue. The programming concept that makes this possible is called conditionals.
+
+This might be a simple example, but conditionals underlie the complex behavior of computer programs from Gmail, to Mario games, to Microsoft Office. Conditionals make it possible for programs to decide how to react to a wide variety of situations.
+
+But computers aren’t intelligent—in order for them to make decisions they have to be programmed with a set of rules to follow.
+
+In this lesson, we’ll explore how we write programs that can make decisions with conditionals.
+
+![Alt text](https://content.codecademy.com/courses/learn-cpp/conditionals-and-logic/streetsign.gif)
+
+---------------------
+2.If Statements
+--------------------
+
+We’re going to learn about a specific type of conditional called an if statement. An if statement follows this basic structure:
+
+    if (/*some condition*/) {
+     // Do something...
+    }
+
+The parentheses hold the condition we want the computer to check. If the condition is true, the code inside the code block ({ }) will run; if it’s not true, the code will not run.
+
+The foundation of any conditional is the boolean data type. A boolean can have one of two values: TRUE or FALSE. Note that these are the words without quotation marks—the string "TRUE" is not the same as the boolean value TRUE. These values are not case sensitive, but we follow the convention of making them uppercase.
+
+If we wanted to write code to approximate our hyperlink example from the previous exercise, we might write something like this:
+
+    $is_clicked = TRUE;
+    if ($is_clicked) {
+      $link_color = "purple";
+      echo $link_color;
+    }
+
+In the code above, we ask the computer to check the $is_clicked variable as the condition. If its value is TRUE, the value of $link_color will be assigned "purple" and printed.
+
+In the code above, were our condition not met, we’d skip over the code turning the link purple, but what should we do instead? If the link has been clicked, the color should be purple, otherwise it should be blue. We can include a block of code to run when the condition is not met with the keyword else:
+
+    $is_clicked = FALSE;
+    if ($is_clicked) {
+      $link_color = "purple";
+      echo $link_color;
+    } else {
+      $link_color = "blue";
+      echo $link_color;
+    }
+
+We changed the value of $is_clicked to FALSE so that the if block will not run. Rather, the else block will run and blue will be printed to the terminal. 
+
+
+--------------------------
+3.Comparison Operators
+--------------------------
+
+The condition, or expression, in an if statement can hold a boolean value—like TRUE or FALSE, a variable assigned to one of those values, or an expression that evaluates to TRUE or FALSE.
+
+Just as we can represent a value of five with 5 or with an expression that evaluates to five e.g. 3 + 2, we can write expressions that evaluate to TRUE or FALSE. Comparison operators evaluate a relationship between two operands and return a boolean value.
+
+The less than operator (<) will return TRUE if the left operand is less than the right operand and FALSE if it’s not:
+
+    1 < 10; // Evaluates to: TRUE
+    11 < 3; // Evaluates to: FALSE
+
+The less than or equal to operator (<=) will return TRUE if the left operand is less than or equal to the right operand and FALSE if it’s not:
+
+    1 <= 10; // Evaluates to: TRUE
+    4 <= 4; // Evaluates to: TRUE
+    18 <= 2; // Evaluates to: FALSE
+
+The greater than operator (>) will return TRUE if the left operand is greater than the right operand and FALSE if it’s not. And the greater than or equal to operator (>=) will return TRUE if the left operand is greater than or equal to the right operand and FALSE if it’s not:
+
+    1 > 10; // Evaluates to: FALSE
+    11 > 3; // Evaluates to: TRUE
+    1 >= 10; // Evaluates to: FALSE
+    11 >= 11; // Evaluates to: TRUE
+    54 >= 10; // Evaluates to: TRUE
+    
+---------------------------------------
+4.Identical and Not Identical Operators
+---------------------------------------
+
+In this exercise we’re going to learn a few more comparison operators and see how we can use them to compare more than just number values.
+
+The identical operator (===) will return TRUE if the left operand is the same as the right operand and FALSE if it’s not:
+
+    $num = 5;
+    $num === 5; // Evaluates to: TRUE
+    10 === 10; // Evaluates to: TRUE
+    $num === 20; // Evaluates to: FALSE
+
+When we think about comparing two values, we’ll need to think like a computer. Are "hello" and "Hello" the same?
+
+    $greeting = "hello";
+    $greeting === "hello"; // Evaluates to: TRUE
+    "hello" === "hel" . "lo";   // Evaluates to: TRUE
+    $greeting === "HELLO"; // Evaluates to: FALSE
+
+The not identical operator (!==) will return TRUE if the two operators are different and FALSE if they’re the same:
+
+    $num = 5;
+    $num !== 5; // Evaluates to: FALSE
+    10 !== 10; // Evaluates to: FALSE
+    $num !== 20; // Evaluates to: TRUE
+ 
+    $greeting = "hello";
+    "hello" !== "hello"; // Evaluates to: FALSE
+    $greeting !== "HELLO"; // Evaluates to: TRUE
+
+When looking through PHP code, you may encounter another operator—the equal operator (==). Like the identical operator, the equal operator will return TRUE if the left operand is the same as the right operand and FALSE if it’s not. But the equal operator is less strict than the identical operator and can have some hard to predict results, so we prefer to only use the identical operator. 
+
+
+------------------------------
+5.Elseif Statements
+------------------------------
+
+So far, we’ve been writing conditionals that can only handle one condition. If that condition is met, we do one thing, otherwise we do something else. This only allows us one or two courses of action. But programs can be far more complex.
+
+Consider letter grades on a school assignment:
+
+    If the grade is less than 60, it’s an F
+    Or else, if the grade is less than 70, it’s a D.
+    Or else, if the grade is less than 80, it’s a C.
+    Or else, if the grade is less than 90, it’s a B.
+    Or else, it’s an A.
+
+We can write conditionals with multiple if statements using the elseif construction. The computer will continue through each condition until it finds a condition which is met or gets to the end—whichever comes first.
+
+Let’s implement our letter grades example in code:
+
+    $grade = 88;
+    if ($grade < 60) {
+      echo "You got an F";
+    } elseif ($grade < 70) {
+      echo "You got a D";
+    } elseif ($grade < 80) {
+      echo "You got a C";
+    } elseif ($grade < 90) {
+      echo "You got a B";
+    } else {
+      echo "You got an A";
+    }
+
+In the code above, $grade has a value of 88. The computer will check each condition until one is met and run that block of code. When it gets to the condition $grade < 90, it evaluates to TRUE. That code block executes, and You got a B is logged to the terminal.
+
+Notice that the order of our conditionals is important. The grade 55 would satisfy the condition $grade < 90, but it meets the condition intended for it, $grade < 60 first. What if the elseif statements were in a different order?
+
+    $grade = 55;
+    if ($grade < 90) {
+      echo "You got a B";
+    } elseif ($grade < 80) {
+      echo "You got a C";
+    } elseif ($grade < 70) {
+      echo "You got a D";
+    } elseif ($grade < 60) {
+      echo "You got an F";
+    } else {
+      echo "You got an A";
+    }
+
+The code above will output You got a B to the terminal since the computer will run the first TRUE condition. We need to take care when constructing our conditionals that they have the outcome we want.
+
+Note: you may encounter the keywords else if with a space separating the two words. In many situations, else if will work the same way as elseif. Since elseif works more universally, that’s what we choose to use. 
+
+
+-------------------------
+6.Switch Statement
+---------------------------
+
+We often want to compare a value, expression, or variable against many different possible values and run different code depending on which it matches. We can use a series of if/elseif statements which use the identical operator (===) or we can use a switch statement—an alternate syntax.
+
+We wrote some code with if/elseif statements to print a string based on a student’s letter grade:
+
+    if ($letter_grade === "A"){
+      echo "Terrific";
+    } elseif ($letter_grade === "B") {
+      echo "Good";
+    } elseif ($letter_grade === "C") {
+      echo "Fair";
+    } elseif ($letter_grade === "D") {
+      echo "Needs Improvement";
+    } elseif ($letter_grade === "F") {
+      echo "See me!";
+    } else {
+      echo "Invalid grade"; 
+    }
+
+Since this code involves a series of comparisons, it’s ripe for a switch statement! Let’s see it refactored with switch:
+
+    switch ($letter_grade){
+      case "A":
+        echo "Terrific";
+        break;
+      case "B":
+        echo "Good";
+        break;
+      case "C":
+        echo "Fair";
+        break;
+      case "D":
+        echo "Needs Improvement";
+        break;
+      case "F":
+        echo "See me!";
+        break;
+      default:
+        echo "Invalid grade"; 
+    }
+
+We begin the keyword switch followed by the value (or expression) we’ll be comparing—in this case, $letter_grade. We provide possible matches for the expression with the keyword case, the potential matching value, and the colon. For each case, we provide code that should run if that case matches. After each case, we include the keyword break to break out of the switch statement. We can provide a default that should run if none of the provided cases match.
+
+A switch statement is a good example of code that might be preferable not because it’s shorter, but rather because it clearly indicates the purpose of the code; when looking at a switch statement we can quickly identify the important aspects of the code; this makes it easier to understand, extend, and debug.
 
 
