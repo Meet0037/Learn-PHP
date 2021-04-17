@@ -2576,3 +2576,11 @@ Quick Review I
 -> Any value or expression inside a condition will be converted to TRUE or FALSE. We consider values that will convert to TRUE to be truthy and values that will convert to FALSE to be falsy.
 
 -> We can get user input from the terminal with the readline() function.
+
+-------------------------------------------
+1.Logical Operators and Compound Conditions
+------------------------------------------
+
+-------------------------------
+Nested Conditional Statements
+-------------------------------
