@@ -2473,3 +2473,106 @@ $link_color = $isClicked ? "purple" : "blue";
 The ternary operator allows us to write fewer lines of code while maintaining readability.
 
 Note that code in the expression will be executed, but the intended use of the ternary is to conditionally return a value not to execute code.
+
+
+----------------------------
+9.Truthy and Falsy
+-----------------------------
+
+So far in our conditionals, we’ve been dealing with expressions that would evaluate to boolean values in any context. In practice, any value or expression in the condition will be converted to TRUE or FALSE. Take a look at the following real, working PHP code:
+
+    if ("What's going on?"){
+      echo "Let us explain…";
+    } 
+    // Prints: Let us explain…
+
+In the above code, the condition checks the truthiness of the string "What's going on?". The computer converts this value to TRUE and therefore executes the code in the block. We sometimes refer to code that will be converted to TRUE as truthy and code that will be converted to FALSE as falsy since they aren’t actually equivalent to those boolean values, but they will be treated as such in certain contexts. Most values and expressions are treated as truthy, so we’ll focus on those that are falsy:
+
+    Empty strings
+    null
+    an undefined or undeclared variable
+    an empty array
+    the number 0
+    the string "0"
+
+Let’s see this in action:
+
+    if ("") {
+      echo "this will not print";
+    } elseif (null) {
+      echo "this will not print";
+    } elseif ([]) {
+      echo "this will not print";
+    } elseif (0) {
+      echo "this will not print";
+    } elseif ("0") {
+      echo "this will not print";
+    } else {
+      echo "Finally!";
+    }
+
+Since none of the conditions above hold truthy values, the code will print Finally!. 
+
+--------------------------
+10.User Input: readline()
+----------------------------
+
+The outcomes of programs we’ve been writing so far have been predetermined. Unless we manually change our code, it will produce the same results each time it’s run. But this isn’t very realistic. Programs often receive unexpected inputs or results which is why we need conditionals. Conditionals allow us to write flexible programs that handle this variability.
+
+One common reason our programs need to be flexible is when they have user interaction. When we create a website, we don’t know exactly when a user will press a button or exactly what text they’ll input in a form. Writing programs that can handle unique user interaction is a big part of software development.
+
+User interaction isn’t restricted to web development. We can enable user interaction in our terminal-based programs as well.
+
+The built-in readline() function takes a string with which to prompt the user. It waits for the user to enter text into the terminal and returns that value as a string.
+
+    echo "Hi, I'm Aisle Nevertell. What's your name?\n";
+    $name = readline(">> ");
+    echo "\nNice to meet you, $name";
+
+The code above prints, Hi, I'm Aisle Nevertell. What's your name?. Then, it prints >> to the terminal to prompt the user to type and awaits their input which it will save in the $name variable. If the user entered Alex, for example, the program would next print Nice to meet you, Alex to the terminal.
+
+By incorporating in conditionals, we can take different actions depending on the user input:
+
+    echo "\nWhat's your favorite color?\n";
+    $color = readline(">> ");
+    if ($color === "green"){
+      echo "\nCool, that's my favorite too!";
+    } else {
+      echo "\nOh, $color is nice, I guess…";
+    }
+
+In the code above, we prompt the user to enter their favorite color. If they say our favorite color (green), we give one response, otherwise we give a different response. 
+
+-------------------------
+Quick Review I
+-------------------------
+
+
+-> Conditionals make it possible for programs to decide how to react to a wide variety of situations.
+
+-> if statements allow us to run a block of code if a condition is met.
+
+-> The boolean data type is either the value TRUE or FALSE and is the foundation of programmatic decision making.
+
+-> We use else to include a block of code to run when the condition is not met.
+
+-> Comparison operators evaluate a relationship between two operands and return a boolean value.
+
+    The less than operator (<)
+    The less than or equal to operator (<=)
+    The greater than operator (>)
+    The greater than or equal to operator (>=)
+    The Identical operator (===)
+    The not identical operator (!==)
+    
+-> We can write conditionals with multiple if statements using the elseif construction.
+
+->Instead of using a series of if statements when we want to compare a value, expression, or variable against many different possible values and run different code depending on which it matches, we can use a switch statement.
+
+-> The keyword break tells the computer to break out of the switch statement, without it, it will fall through the rest of the switch executing all the code until it reaches a break or the end of the statement.
+
+-> A ternary operator (?:) is shorthand conditional operator. It takes three operands (a condition to check, an expression to return if the condition is TRUE, and an expression to return if the condition is FALSE).
+
+-> Any value or expression inside a condition will be converted to TRUE or FALSE. We consider values that will convert to TRUE to be truthy and values that will convert to FALSE to be falsy.
+
+-> We can get user input from the terminal with the readline() function.
