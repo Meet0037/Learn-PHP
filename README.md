@@ -2402,3 +2402,74 @@ We begin the keyword switch followed by the value (or expression) we’ll be com
 A switch statement is a good example of code that might be preferable not because it’s shorter, but rather because it clearly indicates the purpose of the code; when looking at a switch statement we can quickly identify the important aspects of the code; this makes it easier to understand, extend, and debug.
 
 
+----------------------------
+7.Switch Statements: Fall through
+-------------------------------
+
+In the previous exercise, we taught you to use the keyword break after the block for each case. Without the keyword break, not only will the first matching case’s block run, but so will all the code in the subsequent cases! This is known as fall through. The keyword break tells the computer to break out of the switch statement, without it, it will fall through the rest of the switch executing all the code until it reaches a break, a return, or the end of the statement:
+
+    $letter = "a";
+    switch ($letter) {
+      case "a":
+        echo "a";
+      case "b":
+        echo "b";
+      case "c":
+        echo "c";
+      case "d":
+        echo "d";
+    }
+
+The code above will output abcd. Only the first case (case "a") actually matches the value of $letter, but since the above code doesn’t have any breaks all of the code in the switch will execute. Fall through may seem like a drag, but it can be useful when we want multiple cases to execute the same code:
+
+    switch ($day_of_week) {
+      case "Monday":
+      case "Tuesday":
+        echo "Just getting started!";
+        break;
+      case "Wednesday":
+        echo "Humpday!";
+        break;
+      case "Thursday":
+      case "Friday":
+        echo "Almost the weekend!";
+        break;
+      case "Saturday":
+      case "Sunday":
+        echo "Enjoy!";
+        break;
+    }
+
+In the code above, we use fall through to our advantage by placing cases that should execute the same code next to each other and having them share a code block. So, for example, if $day_of_week has the value "Monday" or "Tuesday", the string "Just getting started!" will be printed.
+
+It’s ok if you don’t find fall through useful in your own code. But knowing how to use it should remind you that it exists and that you need those breaks!
+
+-------------------------
+8.Ternary Operator in PHP
+--------------------------
+
+PHP offers a short-hand syntax to conditionally return a value. Before learning it, let’s consider some example code:
+
+    $isClicked = FALSE;
+    if ( $isClicked ) {
+      $link_color = "purple";
+    } else {
+      $link_color = "blue";
+    }
+
+In the code above, our condition checks the value of the $isClicked variable. If it’s TRUE we assign $link_color to "purple", otherwise we assign it the value "blue". Our code is somewhat repetitive—the code in each code block is only slightly different.
+
+A ternary operator (?:) is another conditional operator. It takes three operands and returns a value:
+
+    The first operand is a condition to check. This is followed by a question mark ?.
+    The second operand is an expression to return if the condition is TRUE. This is followed by a colon (:).
+    The third operand is an expression to return if the condition is FALSE.
+
+Let’s see our previous example refactored with the ternary operator:
+
+    $isClicked = FALSE;
+$link_color = $isClicked ? "purple" : "blue";
+
+The ternary operator allows us to write fewer lines of code while maintaining readability.
+
+Note that code in the expression will be executed, but the intended use of the ternary is to conditionally return a value not to execute code.
