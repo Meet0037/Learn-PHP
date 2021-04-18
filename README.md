@@ -2582,5 +2582,214 @@ Quick Review I
 ------------------------------------------
 
 -------------------------------
-Nested Conditional Statements
+1.Nested Conditional Statements
 -------------------------------
+
+In the previous lesson, we explored the foundations of making decisions in programming: booleans and conditionals. In this lesson, we’ll deepen the complexity of our programs’ decision-making capabilities—we’ll be able to make programs where each decision made sends our program on a different route where it might encounter additional decisions.
+
+We wrote some code to illustrate our decision-making process when taking an elevator. Read through the code to make sense of the process:
+
+      $is_elevator_here = true;
+      $elevator_direction = "down";
+      $my_direction = "up";
+      $is_button_pushed = false;
+
+      if ($is_elevator_here){
+          if ($elevator_direction === $my_direction){
+            echo "I'm in the elevator.";
+          } else {
+              if ($is_button_pushed){
+                echo "I'm waiting...!";
+              } else {
+                  echo "I'm pushing the button.";
+              }
+         }
+      } else {
+          if ($is_button_pushed){
+              echo "I'm waiting...";
+          } else {
+              echo "I'm pushing the button.";
+          }
+       }
+
+Notice that in order to implement this decision-making process with code, we nested conditionals inside each other. This is one way to make more complicated programs. In this lesson, we’ll also learn a new set of operators which will allow us to craft more elaborate decision-making programs. By the end, you’ll be equipped to make powerful, dynamic programs.
+
+
+---------------------
+2.The || Operator
+---------------------
+
+Expressions that use logical operators evaluate to boolean values.
+
+The logical operator || takes two different boolean values or expressions as its operands and returns a single boolean value. It returns TRUE if either its left operand or its right operand evaluate to TRUE. We can use || in situations where more than one condition should lead to the same outcome.
+
+    TRUE || TRUE;   // Evaluates to: TRUE
+
+    FALSE || TRUE;  // Evaluates to: TRUE
+
+    TRUE || FALSE;  // Evaluates to: TRUE
+
+    FALSE || FALSE; // Evaluates to: FALSE
+
+Let’s think about an example we might encounter in web development: when requesting a password change for a web application, the password can only be changed by either the user themselves or an administrator.
+
+    $is_admin = FALSE;
+    $is_user = TRUE;
+    if ($is_admin || $is_user){
+      echo "You can change the password";
+    }
+
+In the code above, the condition $is_admin || $is_user evaluates to TRUE and "You can change the password" is printed to the terminal. Note that while $is_admin is FALSE, $is_user is TRUE. The || operator is inclusive—it evaluates to TRUE if either or both of the operands are TRUE.
+
+--------------------------
+3.The && Operator
+------------------------
+
+Often, we’ll encounter situations where we have more than one condition we need satisfied in order to take an action.
+
+The logical && operator returns TRUE only if both of its operands evaluate to TRUE. It returns FALSE if either or both of its operands evaluate to false.
+
+    TRUE && TRUE;    // Evaluates to: TRUE
+    FALSE && TRUE;   // Evaluates to: FALSE
+    TRUE && FALSE;   // Evaluates to: FALSE
+    FALSE && FALSE;  // Evaluates to: FALSE
+
+Let’s think about a real-world example: when attempting to withdraw money from an ATM, the account holder must both provide the correct PIN and have enough money in their account.
+
+    $correct_pin = TRUE;
+    $sufficient_funds = TRUE;
+    if ($correct_pin && $sufficient_funds){
+      echo "You can make the withdrawal.";
+    }
+
+The && operator has a higher operator precedence than the || operator. This means that in a complex statement that includes both operators, the computer will evaluate the part of the expression with && first:
+
+    TRUE || TRUE && FALSE // Evaluates to: TRUE
+
+If we want to control the order in which the expression is evaluated, we can use parentheses for force the order:
+
+    (TRUE || TRUE) && FALSE // Evaluates to: FALSE
+    
+    
+------------------------
+4.The Not Operator
+-----------------------
+
+The logical not operator (!) takes only a right operand. It reverses the boolean value of its operand.
+
+    !TRUE;    // Evaluates to: FALSE
+    !FALSE;   // Evaluates to: TRUE
+
+The not operator has very high operator precedence; be sure to use parentheses so that code evaluation happens as intended:
+
+    !10 < 11; // Evaluates to: TRUE
+    !(10 < 11);  // Evaluates to: FALSE
+    !TRUE || TRUE; // Evaluates to: TRUE
+    !(TRUE || TRUE); // Evaluates to: FALSE
+
+The not operator is useful when we only want to take a course of action if a condition is not true. For example, if a user is not logged in, a web application may show a pop-up telling them they must do so to continue.
+
+    $is_logged_in = FALSE; 
+    if (!$is_logged_in){
+      echo "You must log in to continue.";
+    }
+
+We could accomplish this same functionality without using the ! operator, but look at how much more cumbersome that code is:
+
+    $is_logged_in = FALSE; 
+    if ($is_logged_in){
+     // Do nothing... 
+    } else {
+      echo "You must log in to continue.";
+    }
+    
+--------------------------------
+5.The Xor Operator
+----------------------------------
+
+The logical operator xor stands for exclusive or. It takes two different boolean values or expressions as its operands and returns a single boolean value. Unlike regular or which evaluates to TRUE if either its left operand or its right operand evaluate to TRUE, xor evaluates to TRUE only if either its left operand or its right operand evaluate to TRUE, but not both.
+
+    TRUE xor TRUE;   // Evaluates to: FALSE
+
+    FALSE xor TRUE;  // Evaluates to: TRUE
+
+    TRUE xor FALSE;  // Evaluates to: TRUE
+
+    FALSE xor FALSE; // Evaluates to: FALSE
+
+We can use xor to answer either/or questions: Did you wear either glasses or contacts today?
+
+    If neither, the answer is “No”—I didn’t wear glasses nor did I wear contacts. My vision is impaired.
+    If I wore both, the answer is “No”—I didn’t wear either glasses or contacts. My vision is impaired.
+    If I wore contacts, the answer is “Yes”—I wore contacts, so my vision was corrected.
+    If I wore glasses, the answer is “Yes”—I wore glasses, so my vision was corrected. .
+
+Let’s code up this example:
+
+    $is_wearing_glasses = TRUE;
+    $is_wearing_contacts = TRUE;
+
+    if ($is_wearing_glasses xor $is_wearing_contacts){
+        echo "Your vision is corrected!";
+    } else {
+        echo "Your vision is impaired.";
+    }
+    
+    
+--------------------------
+6.Alternate Syntax
+--------------------------
+
+An alternate syntax for logical || operator is the or operator, and an alternate syntax for logical && operator is the and operator. These operators have the advantage of making our code more human readable.
+
+    // The or Operator:
+    TRUE or TRUE;   // Evaluates to: TRUE
+    FALSE or TRUE;  // Evaluates to: TRUE
+    TRUE or FALSE;  // Evaluates to: TRUE
+    FALSE or FALSE; // Evaluates to: FALSE
+
+    // The and Operator:
+    TRUE and TRUE;   // Evaluates to: TRUE
+    FALSE and TRUE;  // Evaluates to: FALSE
+    TRUE and FALSE;  // Evaluates to: FALSE
+    FALSE and FALSE; // Evaluates to: FALSE
+
+The computer treats these operators slightly differently from the symbol operators due to operator precedence. The or and and logical operators have a lower precedence than || and &&.
+
+    TRUE || TRUE && FALSE // Evaluates to: TRUE
+    TRUE || TRUE and FALSE // Evaluates to: FALSE
+
+As we mentioned before, we can avoid operator precedence confusion by using parentheses for force the evaluation we want:
+
+    (TRUE || TRUE) && FALSE // Evaluates to: FALSE
+    TRUE || (TRUE and FALSE) // Evaluates to: TRUE
+
+Going forward you can use whichever logical operators you prefer, but let’s get some practice with and and or.
+
+
+-------------------------------
+7.Multi-File Programs: include
+-------------------------------
+
+Separation of concerns is the programming design principle of organizing code into distinct sections each handling a specific task. It enables us to quickly navigate our code and know where to look if something isn’t working. We’ve seen how functions can allow us to practice separation of concerns—by packaging certain routines in functions, we’re able to write cleaner code. But when programs start to get very long, functions aren’t always enough.
+
+Another way to improve our code and separate concerns is with modularity, separating a program into distinct, manageable chunks where each provides a piece of the overall functionality. Instead of having an entire program located in a single file, code is organized into separate files. Each file is then included in our main program with the keyword include. An include statement will bring the code from a file into the current file and also run the code. It’s as if all the code from that file was written right there. We provide the path to the file to be included as a string.
+
+For example, let’s say we had three files one.php, two.php, and index.php, and we want to include the code from files one.php and two.php inside index.php:
+
+    // one.php
+    echo "How are";
+
+    // two.php
+    echo " you?";
+
+    // index.php
+    echo "Hello! ";
+    include "one.php";
+    include "two.php";
+    // Prints: Hello! How are you?
+
+When we run index.php Hello! How are you? is printed to the terminal. 
+
+
+
