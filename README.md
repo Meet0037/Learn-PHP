@@ -2578,7 +2578,7 @@ Quick Review I
 -> We can get user input from the terminal with the readline() function.
 
 -------------------------------------------
-1.Logical Operators and Compound Conditions
+J.Logical Operators and Compound Conditions
 ------------------------------------------
 
 -------------------------------
@@ -2792,4 +2792,203 @@ For example, let’s say we had three files one.php, two.php, and index.php, and
 When we run index.php Hello! How are you? is printed to the terminal. 
 
 
+----------------------------------
+K.Loops
+--------------------------------
+
+------------------
+1.Intro
+----------------
+
+When attempting to repeat code over and over again, it can be monotonous to retype or copy and paste the same code. Worse, inadvertent typos can cause errors in your program.
+
+Consider an example where you want your code to print the all the numbers from 1 to 10. Without loops, this would look something like:
+
+    echo "1\n";
+    echo "2\n";
+    echo "3\n";
+    echo "4\n";
+    echo "5\n";
+    echo "6\n";
+    echo "7\n";
+    echo "8\n";
+    echo "9\n";
+    echo "10";
+
+That’s a lot of typing! And what if you decide later you want to change it to add "The count is currently: " at the beginning of each statement? You would need to copy and paste that into every single line.
+
+Luckily, most programming languages contain a feature, called loops, for repeating code automatically until certain conditions are met. Sometimes the repetition is referred to as iterating and each time the code is executed is considered an iteration. Loops can be used to reduce the number of lines of code while also making it much easier to modify later on.
+
+PHP is no exception and offers several ways to repeat execution of a code block.
+
+This lesson will cover the following PHP loop types:
+
+    while
+    do … while
+    for
+    foreach
+
+Each of these loops contain conditions for stopping execution of the loop. Improper implementation of these conditions can cause an infinite loop and the computer will never stop executing your code block. if it seems like your code is taking too long or never completes, consider refreshing the page and re-examining your loop structure.
+
+[!Alt text](https://content.codecademy.com/courses/php-loops/roundabout.gif)
+
+--------------------------
+2.while 
+-----------------------
+
+The first PHP loop that we will cover is the while loop. This type of loop continues to iterate as long as its conditional is true.
+
+This code outputs the numbers from 1-10, similar to the previous example:
+
+    $count = 1;
+    while ($count < 11)
+    {
+      echo "The count is: " . $count . "\n";
+      $count += 1;
+    }
+
+The first time the interpreter encounters this code, it checks the condition. If it evaluates to TRUE, the code block is executed. It then checks the condition again, and if TRUE, executes the code block again. It continues in this fashion until the condition is FALSE.
+
+In this example, the code within the curly braces ({}) executes while the conditional statement within the brackets ($count < 11) is still true. $count starts at a value of 1 so the conditional is true on the first iteration.
+
+The variable $count is incremented by 1 during each iteration of the loop ($count += 1). When $count is equal to 11, the conditional is no longer true and the while loop terminates. Any code after this block is then executed.
+
+---------------------
+3.do while
+---------------------
+
+A do…while loop is very similar to a while loop. The main difference is that the code block will execute once without the conditional being checked. After the first iteration, it behaves the same as a while loop.
+
+The syntax is slightly different, and the conditional goes at the end of the code block. Our counting to 10 example looks like:
+
+    $count = 1;
+    do {
+      echo "The count is: " . $count . "\n";
+      $count += 1;
+    } while ($count < 11);
+
+Unlike the other loop types, the do…while loop requires a semicolon at the end.
+
+In practice, only use this type of loop when you always need the code block to execute at least one time.
+
+For example, if you want to ask a user to guess a secret number, you could use code like:
+
+    <?php
+    do {
+      $guess = readline("\nGuess the number\n");
+    } while ($guess != "42");
+    echo "\nYou correctly guessed 42!";
+
+This code asks the user to "Guess the number" and continues asking them until they successfully guess 42.
+
+----------------------
+4.for
+----------------------
+
+A for loop is commonly used to execute a code block a specific number of times.
+
+    for (#expression 1; #expression 2; #expression 3)
+    {
+      # code block
+    }
+
+The for loop syntax includes 3 expressions:
+
+    The first is evaluated only one time before the first iteration.
+    The second is evaluated before each iteration. If it is TRUE, the code block is executed. Otherwise, the loop terminates.
+    The third is evaluated after each iteration. Note that expressions 1 and 2 have semicolons after them.
+
+In our counting to 10 example, the syntax becomes:
+
+    for ($count = 1; $count < 11; $count++)
+    {
+      echo "The count is: " . $count . "\n";
+    }
+
+The first expression is $count = 1, this initializes the $count variable to 1.
+
+At each iteration, the second expression ($count < 11) is evaluated. As long as this is TRUE, the code block executes.
+
+The final expression ($count++) executes after every iteration. In this example, $count is being incremented by 1 each iteration.
+
+After 10 iterations, the value of the $count variable is 11. This makes the second expression FALSE and the loop execution terminates.
+
+
+-----------------------
+5.foreach
+-----------------------
+
+The foreach loop is used for iterating over an array. The code block is executed for every element in the array and the value of that element is available for use in the code block.
+
+Our counting to 10 example becomes:
+
+    $counting_array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    foreach ($counting_array as $count) {
+      echo "The count is: " . $count . "\n";
+    }
+
+Here, we are iterating over $counting_array. On each iteration, the current element in the array is assigned to the variable $count.
+
+We can also iterate over dictionary type arrays with keys and values:
+
+    $details_array = ["color" => "blue", "shape" => "square"];
+    foreach ($details_array as $detail) {
+      echo "The detail is: " . $detail . "\n";
+    }
+
+This will print:
+
+The detail is: blue
+The detail is: square
+
+But we can change the syntax slightly to get access to the keys as well as the values:
+
+    $details_array = ["color" => "blue", "shape" => "square"];
+    foreach ($details_array as $attribute => $detail) {
+      echo "The " . $attribute . " is: " . $detail . "\n";
+    }
+
+This will print:
+
+The color is: blue
+The shape is: square
+
+Since the loop is controlled by the structure of the array, you can encounter some unexpected behavior if you begin modifying the array during the execution of the foreach loop.
+
+-----------------------
+6.break and continue
+-------------------------
+
+Similar to switch statements, the break keyword can be used to terminate any of the loop types early. In our counting example of a while loop, if we add a conditional and a break statement:
+
+    $count = 1;
+    while ($count < 11)
+    {
+      echo "The count is: " . $count . "\n";
+      if ($count === 5) {
+        break;
+      }
+      $count += 1;
+    }
+
+The code will now count from 1 to 5 and then stop.
+
+One downside of heavy usage of break statements is that code can become less readable. In this example, a quick glance might give someone the impression that the loop will iterate until $count is 10. In reality, the buried break statement is controlling the final iteration of the loop.
+
+The continue keyword is similar to break except it only ends the current iteration early, not the entire loop. We could use this in our example to skip counting the number 5:
+
+    $count = 1;
+    while ($count < 11)
+    {
+      if ($count === 5) {
+        $count += 1;
+        continue;
+      }
+      echo "The count is: " . $count . "\n";
+      $count += 1;
+    }
+
+Note that we needed to add an extra increment before the continue ($count += 1;) to avoid being caught in an infinite loop.
+
+--------------------------
 
