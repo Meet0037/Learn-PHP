@@ -3086,5 +3086,101 @@ With this, our example can be fixed like this:
     foreach($array as $name): ?>
     <p><?=$name?></p>
     <?php endforeach; ?>
-   
+    
+    
+-----------------------------------
+M.Introduction to Form Validation
+----------------------------------
+
+--------------
+1.Intro
+--------------
+
+Modern websites require a lot of information to function as intended. Information like our usernames, passwords, “friends”, “likes”, credit card information, and shopping orders all have to be provided by users on the front-end and sent to the web applications’ servers so they can be processed. This information is used to create a personalized experience for the user.
+
+User information is traditionally collected using HTML forms. If you’ve ever entered text in a website, selected from options on a list, or checked boxes and then hit enter or pressed a button, you likely filled out and submitted an HTML form!
+
+In order for the data submitted through forms to be useful, it’s essential that the information is valid—if you were allowed to accidentally submit your last name where your address was expected, your package would never show up!
+
+The process of checking that the information submitted through a form adheres to expectations is called form validation. In this lesson, we’ll explore the different techniques for validating form inputs.
+
+--------------------------------
+2.Why Validate Forms?
+----------------------------
+
+Most data, once submitted, is stored by a website or web application. It’s stored in a database on the server side. There are important reasons for us to make sure the information that will be stored in the database is accurate.
+
+We want operations that depend on the data to work: Allowing a user to enter an incorrectly formatted email address, either on purpose or by accident, means that we won’t be able to contact that user later. Allowing a user to sign up for an account with a username that is already in use could cause numerous errors down the line. Making sure we collect all the data we need and checking that the data are formatted correctly can save a web application and its users a lot of trouble.
+
+We want to keep our site secure: Unprotected data leaves entry points for malicious actors to hurt our application or our users. Allowing a user to submit a non-secure password means that their account will not be protected. Unprotected forms can also allow bits of code to be injected into our servers. This can potentially leave our users’ sensitive information exposed. The malicious actor could even gain control of our site or corrupt our existing data!
+
+
+----------------------
+3.Regular Expressions
+----------------------
+
+Data submitted through forms are stored as strings. Strings are a fundamental data type in computer science representing a series of characters “strung” together. As humans, we can intuitively recognize patterns within strings, and this allows us to catch errors. Try to notice what’s wrong in the following examples:
+
+    ABCDEF2GHIJKLMNOPQRSTUVWXYZ
+    My zip code is 9021
+    The ct meowed
+    <h1> Hello, World! </h2>
+
+In the first example, we had the letters of the alphabet presented in order but interrupted by an out of place 2. In the second, we left off the 5th digit of a famous zip code. In the third, we omitted the “a” from the word cat. In the final example, we wrote some HTML with an <h1> opening tag but an unmatching </h2> closing tag. If you picked up on these mistakes, it’s because your brain has been trained to expect patterns in certain types of data.
+
+Unlike humans, who can get this training passively over time, computers have to be precisely programmed to recognize patterns. To specify patterns for the computer to recognize, we use a special language called _regular expressions_—also known as regex or regexp. A regular expression is a sequence of characters representing a pattern. We can use that pattern to match a string, match parts of a string, confirm that data is formatted acceptably, or even replace parts of strings with different characters.
+
+-------------------------------
+4.Client-side Validation: HTML
+-------------------------------
+
+The first technique we can use to validate form data is to prevent problematic inputs from being submitted in the first place. This is called client-side validation. The client is the process interacting with the server on behalf of a user—in the case of websites, the web browser is the client. The logic for validating the form is included with the code that displays the form on the user’s device. No interaction with the back-end is required to perform client-side validations.
+
+Since form validation is so common, modern HTML provides some of these validation features built-in. For example, we can use HTML to make parts of a form required and others optional. We can also use HTML to set minimum and maximum values for an input or minimum or maximum lengths for a text input. We can even necessitate that the input match a particular pattern, specified by a regular expression.
+
+If any of the rules laid out in the HTML form validation aren’t followed, the user will not be able to submit their form, and they’ll receive an error message explaining why. With these checks in place, the back-end is less likely to be sent incorrect data. HTML form validation will also benefit the user—the client provides the user immediate feedback, without having to wait for time-consuming communication with the back-end.
+
+Example:
+
+    <!DOCTYPE html>
+    <html lang="en" dir="ltr">
+      <body>
+        <h1>Basic HTML Validation</h1>
+        <form action="" method="POST">
+          <label for="text">Enter your name here:</label>
+            <input id="name" name="name" type="text" required minlength="3" maxlength="100">
+          <br><br>
+          <label for="number">Enter your age here:</label>
+          <input type="number" name="age" id="age" required min="1" max="123">
+          <br><br>
+            <label for="code">Best place to learn to code: (hint: starts with a "C")</label>
+      <input id="code" name="code" type="text" required pattern="[cC]odecademy">
+          <br><br>
+          <input type="submit" value="Submit">
+        </form>
+      </body>
+    </html>
+    
+    
+    Explanation:
+    
+        The provided HTML form has three input fields that are required. Try submitting the form without any one of them. Notice now a message appears on the form. We didn’t have to design that ourselves. It’s built into HTML.
+
+        Each input has additional requirements.
+
+        The "name" input requires a text input with a length between 3 and 100.
+        The "age" input requires a number value between 1 and 123.
+        The "code" input requires an input of either Codecademy or codecademy.
+
+        Try out the form with correct and incorrect inputs for each field.
+
+-------------------------------------
+5.Client-side Validation: JavaScript
+-------------------------------------
+
+Client-side validation has two main advantages. First, it’s a better experience for the user to be alerted to problematic data immediately rather than having to wait for that information to come back from the server and have to fill out the form again. Second, catching mistakes earlier in the process saves the application time and resources as well. But not all issues can be handled with the built-in HTML validations.
+
+In order to truly customize validation or to perform more complex validations, we can incorporate JavaScript form validations. We can do this by either writing the JavaScript ourselves or by incorporating a JavaScript library. If we have unique requirements for usernames on our site, for example, we’ll have to provide these systems of validation ourselves.
+
+If we’re creating a relatively simple website, it makes sense to code the form validation ourselves or use a simple vanilla JavaScript library—just-validate, for example. But most basic validation libraries will involve directly accessing or manipulating the DOM. This can get tricky when working with a framework that relies on a virtual DOM—like React or Vue. In those situations, it might be best to incorporate a library that works well with your specific framework. For example, the formik library is a lightweight library that simplifies validating forms in a React app.
 
