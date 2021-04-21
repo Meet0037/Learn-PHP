@@ -3384,6 +3384,53 @@ Once again, as with all other metacharacters, in order to match the symbols ^ an
     # Regex: ^penguins are cooler than regular expressions$
     
     
+-------------------
+Quick Review N
+-------------------
+
+Do you feel those regular expression superpowers coursing through your body? Do you just want to scream ah+ really loud? Awesome! You are now ready to take these skills and use them out in the wild. Before beginning your adventures, let’s review what we’ve learned.
+
+    -> Regular expressions are special sequences of characters that describe a pattern of text that is to be matched
+    
+    -> We can use literals to match the exact characters that we desire
+    
+    -> Alternation, using the pipe symbol |, allows us to match the text preceding or following the |
+    
+    -> Character sets, denoted by a pair of brackets [], let us match one character from a series of characters
+    
+    -> Wildcards, represented by the period or dot ., will match any single character (letter, number, symbol or whitespace)
+    
+    -> Ranges allow us to specify a range of characters in which we can make a match
+    
+    -> Shorthand character classes like \w, \d and \s represent the ranges representing word characters, digit characters, and whitespace characters, respectively
+    
+    -> Groupings, denoted with parentheses (), group parts of a regular expression together, and allows us to limit alternation to part of a regex
+    
+    -> Fixed quantifiers, represented with curly braces {}, let us indicate the exact quantity or a range of quantity of a character we wish to match
+    
+    -> Optional quantifiers, indicated by the question mark ?, allow us to indicate a character in a regex is optional, or can appear either 0 times or 1 time
+    
+    -> The Kleene star, denoted with the asterisk *, is a quantifier that matches the preceding character 0 or more times
+    
+    -> The Kleene plus, denoted by the plus +, matches the preceding character 1 or more times
+    
+    -> The anchor symbols hat ^ and dollar sign $ are used to match text at the start and end of a string, respectively
+
+-------------------------------------
+O.Introduction to PHP Form Validation
+-------------------------------------
+
+------------------------
+1.Introduction
+------------------------
+
+In this lesson, we’ll be using PHP to handle user input submitted through HTML forms. We’ll be performing form validations on the submitted data in order to protect our website and its users.
+
+Websites and applications in production nearly always use front-end validations (HTML and JavaScript validations done on the client-side), but these validations are designed to provide a better user experience—NOT for security. A user could circumvent front-end validation by intentionally or accidentally turning off JavaScript in their browser. We also need to protect against man-in-the-middle attacks, where a malicious actor changes data after it has been submitted by the client.
+
+The back-end should never trust the data it receives from the client. Either intentionally or not, bad data from the client has the potential to expose sensitive information, corrupt our data, or significantly slow down our server. In this lesson, we’ll be working with forms with no front-end validations in place; this will simulate the untrustworthy nature of client-side validation.
+
+We’ll be using PHP to handle the logic to receive POST requests, validate the data, store the data in the back-end, and display meaningful feedback to the user.
 
 
 
