@@ -3522,3 +3522,144 @@ Sometimes we will also want to perform custom sanitizations that cannot be accom
 5.Basic Sanitization with filter_var()
 -------------------------------------
 
+We haven’t yet introduced the most powerful PHP function for sanitizing data: filter_var(). This function operates on a variable and passes it through a “filter” that produces the desired outcome.
+
+As its first argument, filter_var() takes a variable. As its second, it takes an ID representing the type of filtering that should be performed. There are several filters for sanitizing common input types, including FILTER_SANITIZE_EMAIL. The function will return either the sanitized version of the input or FALSE if it was unable to perform the sanitization.
+
+    $bad_email = '<a href="www.evil-spam.biz">@gmail.com';
+    echo filter_var($bad_email, FILTER_SANITIZE_EMAIL);
+    // Prints: ahref=www.evil-spam.biz@gmail.com  
+
+The FILTER_SANITIZE_EMAIL filter trimmed whitespace throughout our input and removed dangerous characters thus preventing any HTML injection. Essentially, it filtered out any characters not allowed in emails. Once sanitized, we can safely display user inputs.
+
+Of course, $bad_email did not store a valid email in the first place. But since we often want to display invalid form data as a hint for the user, this sanitization would be useful to prevent a man-in-the middle attack. We could also have used htmlspecialchars($bad_email), but that would have produced &lt;a href=&quot;www.evil-spam.biz&quot;&gt;@gmail.com instead. Choose the sanitization method based on the output you want to show to the users. 
+
+-------------------------------------------
+6.Basic Validation with filter_var()
+---------------------------------------------
+
+We can use the same filter_var() function to validate as well as sanitize! There are a number of provided validation filters, but they work a bit differently from the sanitization filters. If the variable is deemed valid, filter_var() will return it; otherwise, it will return FALSE:
+
+    $bad_email = 'fake - at - prank dot com';
+    if (filter_var($bad_email, FILTER_VALIDATE_EMAIL)){
+      echo "Valid email!";
+    } else {
+      echo "Invalid email!";
+    } 
+    // Prints: Invalid email!
+
+It’s worth noting that the provided FILTER_VALIDATE_EMAIL filter is stricter than the guidelines regulating acceptable email addresses. If a site needed to accept non-latin characters, for example, the built-in FILTER_VALIDATE_EMAIL filter wouldn’t be sufficient.
+
+Using the provided validation filters is really convenient. You can check out the list of available validation filters in the PHP manual. For example, FILTER_VALIDATE_URL is useful for checking if a string corresponds to a possible URL.
+
+----------------------------------------
+7.Using Options with filter_var()
+---------------------------------------
+
+The filter_var() function accepts an optional third argument that allows us to fine-tune the operation of a given filter. This argument, often called $options, takes the form of a nested associative array.
+
+For example, the $options argument can help us validate that an integer is within a specified range when using the integer validation filter FILTER_VALIDATE_INT. To do this, we set $options to a nested array containing the"min_range" and "max_range" keys in a specific format, shown in the following example:
+
+    function validateAdult ($age){
+      $options = ["options" => ["min_range" => 18, "max_range" => 124]];  
+      if (filter_var($age, FILTER_VALIDATE_INT, $options)) {
+        echo("You are ${age} years old.");
+      } else {
+        echo("That is not a valid age.");
+      }
+    }
+
+    validateAdult(18); // Prints: You are 18 years old.
+    validateAdult(124); // Prints: You are 124 years old.
+    validateAdult(8); // Prints: That is not a valid age.
+    validateAdult(200); // Prints: That is not a valid age. 
+
+In the code above, we wrote a function validateAdult() which takes in an $age integer argument. We then used the filter_var() function to validate the integer was between 18 and 124 (inclusive) by using the FILTER_VALIDATE_INT filter and an $options argument with the value ["options" => ["min_range" => 18, "max_range" => 124]]. 
+
+
+------------------------------
+8.Custom Validations
+-------------------------------
+
+We’ll often find the validations offered by built-in functions like filter_var() to be insufficient. When validating all but the simplest data, we’ll likely need to write our own, custom input validations.
+
+A very common method for validating data is to compare the input to a pattern we define with a regular expression. The PHP preg_match() function takes two string arguments: a pattern string with a regular expression and a subject string to check. It returns 1 if it matches, 0 if it doesn’t, and FALSE if there was an error.
+
+For example, we can use the regular expression /^[(]*([0-9]{3})[- .)]*[0-9]{3}[- .]*[0-9]{4}$/ to test for 10-digit North American telephone numbers. It will allow spaces, hyphens, or periods as optional separators as well as optional parentheses around the first three numbers:
+
+    $pattern = '/^[(]*([0-9]{3})[- .)]*[0-9]{3}[- .]*[0-9]{4}$/';
+
+    preg_match($pattern, "(999)-555-2222"); // Returns: 1
+
+    preg_match($pattern, "555-2222"); // Returns: 0
+
+Before we test for regular expression matches, we’ll want to make sure the input isn’t too long. Regular expressions checks can take a lot of computing power—one way a bad actor can damage our website is by submitting extremely long inputs, putting strain on our servers. This can slow down or even crash our site!
+
+We can use the built-in PHP strlen() function to check the length of a given input. Ultimately, the acceptable input length is a judgement call for the web engineer. In this example, we chose 100 characters, but some names can be much longer.
+
+    $name = "Aisle Nevertell";
+    $length = strlen($name);
+    if ($length > 2 && $length < 100){
+      echo "That seems like a reasonable name to me...";
+    } 
+    
+-----------------------------------
+9.Validating Against Back-end Data
+-----------------------------------
+
+Because modern websites and web applications need to store a lot of data, they usually interact with databases on the back-end. A common type of custom validation involves comparing user input against information in the database. In this exercise, we’ll practice validating against back-end data using PHP arrays to stand in for complicated databases.
+
+An important application of this kind of validation is handling the creation of a user’s account. Before creating the account, it is very important to check that a submitted username isn’t already being used by someone else! In order to do this, we’ll need to check the database for that username.
+
+In the example below, we model the database of users with the associative array $users, which contains keys in the format "username" => "password".
+
+    $users = ["coolBro123" => "password123!", "coderKid" => "pa55w0rd*", "dogWalker" => "ais1eofdog$"];
+
+    function isUsernameAvailable ($username){
+      global $users;
+      if (isset($users[$username])){
+        echo "That username is already taken.";
+      } else {
+        echo "${username} is available.";
+      }
+    }
+ 
+    isUsernameAvailable("coolBro123");
+    // Prints: That username is already taken. 
+
+    isUsernameAvailable("aisleOfPHP");
+    // Prints: aisleOfPHP is available.
+
+The above function isUsernameAvailable uses the built-in function isset() to check if a given $username exists in the $users array. In production, this check would be done by querying the database.
+
+----------------------------------------
+10.Sanitizing for Back-end Storage
+-----------------------------------------
+
+In addition to sanitizing data that is displayed to the user, we always need to sanitize all data before storing it in our own databases. There are serious security concerns with storing data in a database—attempting to store unsanitized inputs into a database can allow a bad actor to corrupt or gain access to sensitive information. To sanitize for back-end security, we will use the methods discussed earlier in this lesson.
+
+We’ll also want to sanitize the formatting: make sure the data stored in our database follows consistent formatting. If we’re going to be displaying or using the data, we’ll want to make sure it always looks the same. So even though we may want to let users input their phone numbers with or without parentheses or dashes, when we store it in the database, we’ll want to change all phone numbers to the same format.
+
+To sanitize data formatting, we can use the built-in preg_replace() function. The preg_replace() takes a regular expression, some replacement text, and a subject string; First, It searches through the subject string for instances that match the regular expression. Then, it outputs a copy of the subject string that has the matched instances replaced by the replacement string:
+
+    $one = "codeacademy";
+    $two = "CodeAcademy";
+    $three = "code academy";
+    $four = "Code Academy";
+
+    $pattern = "/[cC]ode\s*[aA]cademy/";
+    $codecademy = "Codecademy";
+
+    echo preg_replace($pattern, $codecademy, $one);
+    // Prints: Codecademy
+
+    echo preg_replace($pattern, $codecademy, $two);
+    // Prints: Codecademy
+
+    echo preg_replace($pattern, $codecademy, $three);
+    // Prints: Codecademy
+
+    echo preg_replace($pattern, $codecademy, $four);
+    // Prints: Codecademy
+
+In the above code, we used the regular expression /[cC]ode\s*[aA]cademy/ which matches most of the common ways people misspell Codecademy. The replacement string is the proper formatting, "Codecademy", meaning that we replaced the matching misspelled versions with the correct spelling and format. Using preg_replace(), we were able to transform the four versions of our company name to the correct version: "Codecademy".
