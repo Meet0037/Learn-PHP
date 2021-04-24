@@ -3847,3 +3847,187 @@ To define a class that inherits from another, we use the keyword extends:
 
 Now, objects of class Dog can bark, but objects of Pet cannot. This makes sense here, because most dogs can bark, but not all pets can.
 
+----------------------------
+7.Overloading Methods
+----------------------------
+
+Sometimes, we want to change how methods behave for subclasses from the original parent definition. This is called overloading a method. To do this, define a new method within the subclass with the same name as the parent method.
+
+For example, our Pet class might have a type method:
+
+    class Pet {
+      function type() {
+        return "pet";
+      }
+    }
+
+But in our Dog class, we want to update this message:
+
+    class Dog extends Pet{
+      function whatIsThis() {
+        return "dog";
+      }
+    }
+
+We can call the parent’s definition of the method within the subclass using parent:: followed by the method name:
+
+    class Dog extends Pet{
+      function type() {
+        return "dog";
+      }
+      function classify(){
+        echo "This " . parent::type() . " is of type " . $this->type();
+        // Prints: This pet is of type dog 
+      }
+    }
+    
+-------------------------------
+8.Visibility - Private Members
+--------------------------------
+
+To understand visibility we need to think about how classes will be used in complex programs—in large applications, a class might be used in diverse situations (passed around inside functions and used in code written by numerous developers). When we think about our classes being used in many situations, we’ll want to consider restricting access to certain member data.
+
+Up to this point, we’ve been using public visibility for properties. This is also the default visibility for methods. A public visibility means members can be accessed from within the object or from outside it. But sometimes we’ll want a member to only be accessible from within the object. To do this, we can declare this member private.
+
+Let’s look at an example:
+
+    class Pet {
+      private $healthScore = 0; 
+      function exercise(){
+        $this->healthScore++;
+      }
+      function feed(){
+        $this->healthScore++;
+      }
+      function healthCheck(){
+        if ($this->healthScore >= 2){
+          echo "This is a healthy pet!";
+        } else {
+          echo "This is an unhealthy pet";
+        }
+      }
+    }
+
+In the code above, we have the property healthScore. This is a number we use to calculate the health of a pet. The healthScore property can be manipulated and accessed by member methods, but since we never want the property to be accessed directly outside of the class, we set the property as private. If an attempt is made to access the property directly, our code will raise a Fatal Error.
+
+---------------------------------
+9.Visibility - Protected Members
+--------------------------------
+
+A class’s private members can only be accessed using methods within that class itself. This isn’t usually the desired effect when we have subclasses. For example, the following code will throw a Fatal Error, since healthScore is private to the Pet class and can’t be accessed from the Horse class:
+
+    class Pet {
+      private $healthScore = 0; 
+    }
+
+    class Horse extends Pet {
+      function brushTeeth() {
+        this->healthScore++; 
+      }
+    }
+ 
+    $my_pet = new Horse();
+    $my_pet->brushTeeth(); // Error
+
+To allow members to be accessed from within child classes, we can set the visibility within the parent class to protected rather than private. This enables child classes to access these properties and methods internally while still preventing them from being accessed externally:
+
+    class Pet {
+      protected $heathScore = 0; 
+    }
+
+    class Horse extends Pet {
+      function brushTeeth() {
+        this->heathScore++; 
+      }
+    }
+ 
+    $my_pet = new Horse();
+    $my_pet->brushTeeth(); // Successfully increments healthScore
+    $my_pet->healthScore; // Error
+    
+----------------------------
+10.Getters and Setters
+---------------------------
+
+The concept of only accessing properties through methods is commonly referred to as using getters and setters.
+
+For example:
+
+    class Pet {
+      private $name;
+      function setName($name) {
+        $this->name = $name;
+      }
+      function getName() {
+        return $this->name;
+      }
+    }
+
+This is the most basic way of using getters and setters in PHP. Initially, it may look like it adds little value over making properties public and accessing them directly. But what if we only want to accept a string when setting the name of a Pet?
+
+We can add logic to the setter to ensure that the value being passed in is formatted properly:
+
+    function setName($name) {
+      if (gettype($name) === "string") {
+        $this->name = $name;
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+We added return values to the setter to provide some feedback as to whether the call to setName was successful.
+
+We can also use the getter to format values as they are passed out of the object. In this example, we are capitalizing the first letter of the Pet name:
+
+    function getName() {
+      return ucfirst($this->name);
+    }
+
+---------------------------------
+11.Static Members
+-----------------------------------
+
+Instantiating objects is the most common way to use classes and is also the most in-line with OOP principles. Sometimes though, it can be useful to group a set of utility functions and variables together into a single class. Since these don’t change for every instance, we don’t need to instantiate them. We can use them statically.
+
+When a member is intended to be used statically, we add the keyword static to its definition.
+
+Consider this class with a static property and a static method:
+
+    class StringUtils {
+      public static $max_number_of_characters = 80;
+      public static function uclast($string) {
+        $string[strlen($string)-1] = strtoupper($string[strlen($string)-1]);
+        return $string;
+      }
+    }
+
+Accessing these static members is done a little differently than with objects. We need to use the Scope Resolution Operator (::). This can be thought of as switching briefly into the scope of the class itself. Since we are inside the scope, we access properties with the dollar sign. For example:
+
+echo StringUtils::$max_number_of_characters; # Prints "80"
+
+Methods are accessed by using the method name:
+
+echo StringUtils::uclast("hello world"); # Prints "hello worlD"
+
+--------------------------
+Quick Review P
+------------------------
+
+Now you have the knowledge to create your own classes and objects in PHP using OOP! Take some time to review the concepts before moving on:
+
+-> Classes are defined using the class keyword.
+
+-> Functions defined within a class become methods and variables within the class are considered properties.
+
+-> There are three levels of visibility for class members:
+   
+    public (default) - accessible from outside of the class
+    protected - only accessible within the class or its descendants
+    private - only accessible within the defining class
+
+-> Members can be defined to be static.
+-> Static members are accessed using the Scope Resolution Operator (::).
+-> Classes are instantiated into objects using the new keyword.
+-> Members of an object are accessed using the Object Operator (->).
+
