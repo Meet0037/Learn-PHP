@@ -3663,3 +3663,187 @@ To sanitize data formatting, we can use the built-in preg_replace() function. Th
     // Prints: Codecademy
 
 In the above code, we used the regular expression /[cC]ode\s*[aA]cademy/ which matches most of the common ways people misspell Codecademy. The replacement string is the proper formatting, "Codecademy", meaning that we replaced the matching misspelled versions with the correct spelling and format. Using preg_replace(), we were able to transform the four versions of our company name to the correct version: "Codecademy".
+
+-------------------------
+11.Rerouting
+-----------------------
+
+In this lesson, we’ve learned some basic tools to validate HTML forms on the back-end using PHP. We learned how to send meaningful feedback to our users when their inputs are invalid. But what should we do if the user has submitted a valid form?
+
+So far, we’ve been sending the users back to the same form whether there were errors in their submission or not. We’ve indicated the form was successfully submitted by conditionally displaying a message, but this isn’t always a great user experience. Think of what happens when you log in to your email. Usually, once a form has been submitted successfully, the user is rerouted to an entirely different page.
+
+We can use the PHP header() function to perform redirects. We call the header() function on a string that begins with "Location: ", followed by the URL we want to redirect the user to. For example: "Location: https://www.best-puppy-pix.com/". After invoking the header() function we’ll want to use the language construct exit to terminate the current script.
+
+To work properly, the header() function needs to be run before anything is output by the script—this includes HTML. So we’ll include it in our PHP script before our file outputs any HTML:
+
+    if (/* Is the submission data validated? */) {
+      header("Location: https://www.best-puppy-pix.com/");
+      exit;
+    }
+    
+-----------------------
+Quick review O
+----------------------
+
+
+-> Performing back-end form validations on the data submitted is an essential step to protect our website and its users.
+
+-> Using the POST method attribute in an HTML form gives our PHP script access to data submitted within the superglobal associative array: $_POST.
+
+-> We modify our HTML and PHP so that when input is deemed invalid, meaningful feedback is shown to the user.
+
+-> If we plan on displaying user input, we need to first sanitize it. We can use methods like trim() and htmlspecialchars() for basic sanitization.
+
+-> We can use filter_var() with a filter to sanitize common input types.
+
+-> We can also use filter_var() with a filter to perform validations on common input types.
+
+-> We’ll often want to perform custom validations.
+
+-> The preg_match() function compares checks if a given string matches a regular expression.
+
+-> Since regular expression comparisons can consume a lot of computing power, we’ll want to check the length of inputs before performing regular expression checks. It’s common to perform validations by comparing user input to back-end data.
+
+-> Before storing user input in our back-end, we’ll sanitize it for both safety and consistent formatting
+
+-> If a user’s form submission has been accepted, we can reroute them to a different page.
+
+------------------------------
+P.Classes and Objects
+-------------------------------
+
+![Alt text](https://content.codecademy.com/courses/php-classes/blueprint.png)
+
+In our PHP programs so far, we’ve relied on data types built into the language—we’ve used String, Number and Boolean data types directly and saved data in variables. We’ve also used Arrays to organize multiple pieces of data within a single structure.
+
+But sometimes the data types built into the language aren’t enough! Just as we can write custom functions and not depend exclusively on PHP’s built-in functions, we can write custom data types.
+
+In order to define our own data types, we’ll think of the general qualities our user-defined types should have. We’ll create a class —a blueprint defining the related data and functions that should be bundled together inside each instance of this new type. Once the class is defined, we can create specific instances of it—as many as we want! These instances of the class are called objects.
+
+--------------------------------
+2.What are Classes?
+-------------------------------
+
+In the previous exercise, we asked you to imagine a class for pets. Let’s see how we would actually create a PHP Pet class.
+
+To define a Pet class, we use the class keyword followed by the class name (typically title cased in PHP) and curly brackets:
+
+    class Pet {
+
+    }
+
+Within the curly brackets, we can add properties, which define the data each object of the class will contain. The syntax is similar to how we define variables:
+
+    class Pet {
+      public $name, $color;
+    }
+
+Note: The public keyword has to do with something called visibility. We’ll discuss this in depth later in the lesson.
+
+-------------------------
+3.Instantiating
+-------------------------
+
+In the previous exercise, we created a class (a blueprint) for any pet we may want to make. But we didn’t make any actual, individual pet objects. Since objects are specific instances of a class, the process of creating them is called instantiation.
+
+In PHP, objects are instantiated using the new keyword followed by the class name and parentheses.
+
+    $very_good_dog = new Pet();
+
+We now have our first object, $very_good_dog. We interact with an object’s properties using the object operator (->) followed by the name of the property (without the dollar sign, $).
+
+We can use this syntax to assign values to object properties:
+
+    $very_good_dog->name = "Lassie";
+
+We can also use it to access the existing value of object properties:
+
+    echo $very_good_dog->name; # Prints "Lassie"
+
+---------------------
+4.Methods
+---------------------
+
+In addition to properties, we can define class methods – essentially functions each object will contain. Methods are frequently used to interact with an object’s properties in a defined manner.
+
+Methods are defined with the same syntax we use when declaring functions (except they are defined within the curly brackets of a class).
+
+Given a Pet class with first and last name properties, we could provide a method which returns the two properties combined into a full name:
+
+    class Pet {
+      public $first, $last;
+      function getFullName() {
+        return $this->first . " " . $this->last;
+      }
+    }
+
+The $this variable refers to the current object; when we invoke this method, $this refers to the specific object that called the method.
+
+Methods are accessed in a similar fashion to properties, using the object operator (->), but in order to invoke them, use parentheses at the end:
+
+    $my_object->classMethod();
+
+So, to access the full name of our Pet, we can use the following:
+
+    $very_good_groundhog = new Pet();
+    $very_good_groundhog->first = "Punxsutawney";
+    $very_good_groundhog->last = "Phil";
+    echo $very_good_groundhog->getFullName(); # Prints "Punxsutawney Phil"  
+    
+---------------------------
+5.Constructor Method
+---------------------------
+
+A constructor method is one of several magic methods provided by PHP. This method is automatically called when an object is instantiated. A constructor method is defined with the special method name __construct.
+
+As an example, if we wanted to initialize the deserves_love property assigned to TRUE for every instance of the Pet class, we could use the following constructor:
+
+    class Pet {
+      public $deserves_love;
+      function __construct() {
+        $this->deserves_love = TRUE;
+      }
+    }
+    $my_dog = new Pet();
+    if ($my_dog->deserves_love){
+      echo "I love you!";
+    }
+    // Prints: I love you!
+
+Constructors can also have parameters. These correspond to arguments passed in when using the new keyword. For example, maybe we want to allow for setting the name of the Pet on instantiation:
+
+    class Pet {
+      public $name;
+      function __construct($name) {
+        $this->name = $name;
+      }
+    } 
+    $dog = new Pet("Lassie");
+    echo $dog->name; // Prints: Lassie
+
+In the code above, we instantiate a new Pet object, $dog with a name property assigned to the value "Lassie". Then we access the property and print it.
+
+Keep in mind that the number of arguments used when instantiating the object must match the number of parameters in the constructor definition otherwise PHP will throw an error.
+
+-----------------------
+6.Inheritance
+----------------------
+
+Imagine we wanted a Dog class in our program. This class would have all the properties of the more general Pet class, but it would have a few more properties and methods specific to only dogs. Rather than having to manually duplicate the things the two classes have in common, we can create a new class which extends the other. The original class can be thought of as the parent and the new class can be thought of as the child class. In object oriented programming, we call this process inheritance since the child class inherits properties and methods from its parent class. A child class is also referred to as a subclass in PHP.
+
+To define a class that inherits from another, we use the keyword extends:
+
+    class ChildClass extends ParentClass {
+
+    }
+
+    Let’s define a Dog class that extends our Pet class. Each Dog instance will have an additional method called bark():
+
+    class Dog extends Pet {
+      function bark() {
+        return "woof";
+      }
+    }
+
+Now, objects of class Dog can bark, but objects of Pet cannot. This makes sense here, because most dogs can bark, but not all pets can.
+
